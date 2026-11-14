@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PRESTON BREEZE | Fine Art &amp; Editorial Photography</title>
+  <title>PRESTON BREEZE | Photographic Exhibition &amp; Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-dark: #07080a;
-      --slab-dark: rgba(12, 14, 18, 0.86);
-      --slab-light: rgba(246, 246, 243, 0.95);
+      --slab-dark: rgba(11, 13, 17, 0.88);
+      --slab-light: rgba(246, 246, 243, 0.96);
       --text-light: #f4f4f6;
       --text-dark: #0c0e12;
       --muted-light: #9ca3af;
@@ -85,9 +85,9 @@
     }
 
     .cursor-ring.active {
-      width: 76px;
-      height: 76px;
-      background: rgba(255, 255, 255, 0.95);
+      width: 78px;
+      height: 78px;
+      background: rgba(255, 255, 255, 0.96);
       color: var(--text-dark);
       font-weight: 700;
       border-color: transparent;
@@ -97,7 +97,7 @@
       .cursor-dot, .cursor-ring { display: none; }
     }
 
-    /* Fixed Parallax Master Backdrop (IMG_1000.png) */
+    /* Fixed Parallax Master Backdrop */
     .backdrop-container {
       position: fixed;
       inset: 0;
@@ -112,11 +112,11 @@
       left: -5%;
       width: 110%;
       height: 120%;
-      /* Uses IMG_1000.png in root or /images/IMG_1000.png automatically */
-      background-image: url('IMG_1000.png'), url('images/IMG_1000.png');
+      /* Uses IMG_1000.png first, with automatic fallback to your snowy basin shot */
+      background-image: url('images/IMG_1000.png'), url('IMG_1000.png'), url('images/20260128_100248.png');
       background-size: cover;
       background-position: center center;
-      will-change: transform, filter;
+      will-change: transform;
       transform: translate3d(0, 0, 0) scale(1.06);
     }
 
@@ -124,23 +124,21 @@
       position: fixed;
       inset: 0;
       z-index: -1;
-      background: radial-gradient(circle at 50% 35%, rgba(7, 8, 10, 0.18) 0%, rgba(7, 8, 10, 0.72) 100%);
+      background: radial-gradient(circle at 50% 30%, rgba(7, 8, 10, 0.2) 0%, rgba(7, 8, 10, 0.78) 100%);
       pointer-events: none;
-      transition: background 0.3s ease;
     }
 
-    /* Sticky Telemetry Status Bar + Navbar (Big Sky Inspired) */
+    /* Sticky Telemetry Status Bar + Navbar */
     .site-header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       z-index: 900;
-      transition: transform 0.35s ease;
     }
 
     .telemetry-bar {
-      background: rgba(7, 8, 10, 0.88);
+      background: rgba(7, 8, 10, 0.9);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border-glass);
       padding: 0.45rem 5%;
@@ -169,8 +167,8 @@
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #22c55e;
-      box-shadow: 0 0 10px #22c55e;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
       animation: pulse 2s infinite;
     }
 
@@ -189,7 +187,7 @@
     }
 
     .nav-bar.scrolled {
-      background: rgba(10, 12, 16, 0.85);
+      background: rgba(10, 12, 16, 0.88);
       backdrop-filter: blur(20px);
       padding: 0.95rem 5%;
       border-bottom: 1px solid var(--border-glass);
@@ -248,14 +246,12 @@
     }
 
     .hero-box {
-      max-width: 1050px;
+      max-width: 1060px;
       background: var(--slab-dark);
       backdrop-filter: blur(22px);
       border: 1px solid var(--border-glass);
       padding: clamp(2.5rem, 5vw, 4.5rem);
       box-shadow: 0 40px 100px rgba(0, 0, 0, 0.65);
-      transform: translateY(0);
-      transition: transform 0.2s ease-out;
     }
 
     .eyebrow {
@@ -280,8 +276,8 @@
 
     .hero-lead {
       font-size: clamp(1.05rem, 1.8vw, 1.25rem);
-      color: rgba(255, 255, 255, 0.82);
-      max-width: 680px;
+      color: rgba(255, 255, 255, 0.84);
+      max-width: 700px;
       font-weight: 300;
       margin-bottom: 2.25rem;
     }
@@ -332,10 +328,10 @@
       border-color: #ffffff;
     }
 
-    /* SECTION 2: Big Sky 50/50 Sticky Scroll-Reveal Engine */
+    /* SECTION 2: Big Sky 50/50 Sticky Scroll-Reveal Engine (Artist Statement) */
     .fifty-fifty-scroll {
       position: relative;
-      height: 300vh; /* 3 scroll chapters */
+      height: 320vh;
     }
 
     .fifty-fifty-sticky {
@@ -344,14 +340,14 @@
       height: 100vh;
       width: 100%;
       display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: 1.08fr 0.92fr;
       overflow: hidden;
       padding: 6.5rem 5% 3.5rem;
       gap: 2.5rem;
       align-items: center;
     }
 
-    /* Left Sticky Frame */
+    /* Left Sticky Multi-Image Frame */
     .sticky-media-box {
       position: relative;
       height: 100%;
@@ -362,13 +358,23 @@
       box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
     }
 
-    .sticky-media-box img {
+    .sticky-slide {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
+      opacity: 0;
+      transform: scale(1.08);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: zoom-in;
-      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
+    }
+
+    .sticky-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 2;
     }
 
     .media-hud {
@@ -376,7 +382,8 @@
       bottom: 1.5rem;
       left: 1.5rem;
       right: 1.5rem;
-      background: rgba(7, 8, 10, 0.82);
+      z-index: 5;
+      background: rgba(7, 8, 10, 0.84);
       backdrop-filter: blur(12px);
       border: 1px solid var(--border-glass);
       padding: 1rem 1.25rem;
@@ -388,7 +395,7 @@
       letter-spacing: 0.1em;
     }
 
-    /* Right Dynamic Sliding Giant Boxes */
+    /* Right Dynamic Sliding Giant Text Boxes */
     .sticky-panels-stage {
       position: relative;
       height: 100%;
@@ -400,7 +407,7 @@
       inset: 0;
       background: var(--slab-light);
       color: var(--text-dark);
-      padding: clamp(2rem, 4.5vw, 4rem);
+      padding: clamp(2rem, 4.2vw, 4rem);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -435,25 +442,25 @@
 
     .scroll-panel h2 {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+      font-size: clamp(1.7rem, 3vw, 2.65rem);
       font-weight: 800;
       line-height: 1.08;
       letter-spacing: -0.02em;
       text-transform: uppercase;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.4rem;
       color: var(--text-dark);
     }
 
     .scroll-panel p {
-      font-size: 1.05rem;
+      font-size: 1.02rem;
       color: var(--muted-dark);
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.15rem;
     }
 
     .panel-progress-dots {
       display: flex;
       gap: 0.6rem;
-      margin-top: 1.75rem;
+      margin-top: 1.5rem;
     }
 
     .dot {
@@ -467,7 +474,7 @@
       background: var(--text-dark);
     }
 
-    /* SECTION 3: Giant Architectural Gallery Box */
+    /* SECTION 3: Giant Exhibition Bento Gallery Slab */
     .giant-section {
       padding: 6rem 5%;
       position: relative;
@@ -475,13 +482,13 @@
     }
 
     .giant-slab {
-      max-width: 1320px;
+      max-width: 1360px;
       margin: 0 auto;
       background: var(--slab-dark);
       backdrop-filter: blur(24px);
       border: 1px solid var(--border-glass);
-      padding: clamp(2.5rem, 5.5vw, 5.5rem);
-      box-shadow: 0 40px 110px rgba(0, 0, 0, 0.7);
+      padding: clamp(2rem, 5vw, 5rem);
+      box-shadow: 0 40px 110px rgba(0, 0, 0, 0.75);
       opacity: 0;
       transform: translateY(60px);
       transition: opacity 0.85s ease, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
@@ -515,127 +522,169 @@
 
     .slab-header h2 {
       font-family: 'Syne', sans-serif;
-      font-size: clamp(2rem, 4.5vw, 3.6rem);
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: -0.02em;
       line-height: 1;
     }
 
-    /* Exhibition Plate Showcase */
-    .exhibition-grid {
+    /* Curated 12-Column Exhibition Grid */
+    .gallery-bento {
       display: grid;
-      grid-template-columns: 1.35fr 0.65fr;
-      gap: 2.5rem;
-      align-items: stretch;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1.75rem;
     }
 
-    .plate-frame {
+    .art-card {
       position: relative;
+      background: #050608;
+      border: 1px solid var(--border-glass);
       overflow: hidden;
-      border: 1px solid var(--border-glass);
-      background: #000;
-      min-height: 520px;
-    }
-
-    .plate-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      cursor: zoom-in;
-      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .plate-frame:hover img {
-      transform: scale(1.04);
-    }
-
-    .plate-specs {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border-glass);
-      padding: 2.5rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .plate-specs h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.65rem;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
+    .span-8 { grid-column: span 8; }
+    .span-6 { grid-column: span 6; }
+    .span-4 { grid-column: span 4; }
+    .span-12 { grid-column: span 12; }
+
+    .art-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 380px;
+      overflow: hidden;
     }
 
-    .plate-specs p {
-      color: var(--muted-light);
-      font-size: 0.98rem;
-      margin-bottom: 2rem;
+    .art-card.tall .art-img-wrap {
+      min-height: 540px;
     }
 
-    .spec-list {
-      list-style: none;
+    .art-card.wide .art-img-wrap {
+      min-height: 480px;
+    }
+
+    .art-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+    }
+
+    .art-card:hover .art-img-wrap img {
+      transform: scale(1.045);
+    }
+
+    .art-caption {
+      padding: 1.15rem 1.4rem;
+      background: rgba(10, 12, 16, 0.95);
       border-top: 1px solid var(--border-glass);
-      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .art-caption h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.02rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #ffffff;
+    }
+
+    .art-caption span {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted-light);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* SECTION 4: Meet the Artist Slab (IMG_0881.png) */
+    .artist-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .portrait-frame {
+      position: relative;
+      border: 1px solid var(--border-dark);
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
+      background: #000;
+    }
+
+    .portrait-frame img {
+      width: 100%;
+      height: 540px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      cursor: zoom-in;
+      transition: transform 0.7s ease;
+    }
+
+    .portrait-frame:hover img {
+      transform: scale(1.03);
+    }
+
+    .portrait-tag {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      background: rgba(12, 14, 18, 0.88);
+      color: #ffffff;
+      padding: 0.45rem 0.9rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .artist-bio h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      line-height: 1.1;
+    }
+
+    .artist-bio p {
+      font-size: 1.05rem;
+      color: var(--muted-dark);
+      margin-bottom: 1.25rem;
+    }
+
+    .artist-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-dark);
       font-family: 'Space Mono', monospace;
       font-size: 0.78rem;
     }
 
-    .spec-list li {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.55rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-      color: var(--muted-light);
-    }
-
-    .spec-list li strong {
-      color: #ffffff;
-    }
-
-    /* SECTION 4: Weddings & Events Commercial Slab */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-      margin: 2.5rem 0 3rem;
-    }
-
-    .service-card {
-      background: #ffffff;
-      border: 1px solid var(--border-dark);
-      padding: 2.25rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .service-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
-    }
-
-    .service-card span {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      color: #0284c7;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+    .artist-meta-grid div span {
       display: block;
-      margin-bottom: 0.75rem;
-    }
-
-    .service-card h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.35rem;
-      text-transform: uppercase;
-      margin-bottom: 0.75rem;
-    }
-
-    .service-card p {
       color: var(--muted-dark);
-      font-size: 0.95rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      margin-bottom: 0.25rem;
     }
 
-    /* SECTION 5: Big Sky Full-Width Cutout Finale ("FAR BEYOND" Style) */
+    /* SECTION 5: Monumental Cutout Finale */
     .monument-cutout {
       position: relative;
       padding: 7rem 5% 3rem;
@@ -646,7 +695,7 @@
     .cutout-word {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(3.5rem, 13vw, 12.5rem);
+      font-size: clamp(3.2rem, 12.5vw, 12rem);
       line-height: 0.88;
       letter-spacing: -0.04em;
       text-transform: uppercase;
@@ -670,17 +719,17 @@
       color: var(--muted-light);
     }
 
-    /* Fullscreen Lightbox */
+    /* Fullscreen Lightbox with Next/Prev Controls */
     .lightbox {
       display: none;
       position: fixed;
       inset: 0;
       background: rgba(5, 6, 8, 0.96);
       z-index: 3000;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 2rem;
-      cursor: zoom-out;
     }
 
     .lightbox.active {
@@ -688,13 +737,42 @@
     }
 
     .lightbox img {
-      max-width: 94vw;
-      max-height: 92vh;
+      max-width: 90vw;
+      max-height: 82vh;
+      object-fit: contain;
       box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85);
       border: 1px solid var(--border-glass);
     }
 
-    @media (max-width: 960px) {
+    .lightbox-bar {
+      margin-top: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--text-light);
+      letter-spacing: 0.12em;
+    }
+
+    .lb-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--border-glass);
+      color: #ffffff;
+      padding: 0.5rem 1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: background 0.2s ease;
+    }
+
+    .lb-btn:hover {
+      background: #ffffff;
+      color: #000000;
+    }
+
+    @media (max-width: 980px) {
       .fifty-fifty-scroll {
         height: auto;
       }
@@ -720,7 +798,10 @@
         transform: none !important;
         pointer-events: auto;
       }
-      .exhibition-grid {
+      .span-8, .span-6, .span-4 {
+        grid-column: span 12;
+      }
+      .artist-grid {
         grid-template-columns: 1fr;
       }
       .telemetry-bar {
@@ -742,23 +823,23 @@
   <div class="backdrop-container">
     <div class="parallax-img" id="parallax-bg"></div>
   </div>
-  <div class="backdrop-overlay" id="backdrop-overlay"></div>
+  <div class="backdrop-overlay"></div>
 
   <!-- Sticky Header + Telemetry Bar -->
   <header class="site-header">
     <div class="telemetry-bar">
-      <span>LOC: <strong>40.7608° N, 111.8910° W // SALT LAKE CITY, UT</strong></span>
+      <span>EXHIBITION: <strong>ART 1055 // UNIVERSITY OF UTAH</strong></span>
       <span class="status-pill">
         <span class="status-dot"></span>
-        ART 1055 EXHIBITION &amp; 2026–27 BOOKINGS OPEN
+        PORTFOLIO ARCHIVE // 08 PLATES LOADED
       </span>
     </div>
     <nav class="nav-bar" id="navbar">
       <a href="#" class="brand-logo">Preston Breeze</a>
       <div class="nav-links">
         <a href="#statement">01 / Statement</a>
-        <a href="#work">02 / Exhibition</a>
-        <a href="#commissions">03 / Weddings &amp; Events</a>
+        <a href="#gallery">02 / Exhibition</a>
+        <a href="#artist">03 / The Artist</a>
       </div>
     </nav>
   </header>
@@ -766,15 +847,15 @@
   <main>
     <!-- 1. MONUMENTAL HERO -->
     <section class="hero">
-      <div class="hero-box" id="hero-box">
-        <span class="eyebrow">Fine Art Portfolio &bull; Weddings &bull; Editorial Events</span>
+      <div class="hero-box">
+        <span class="eyebrow">Fine Art Photography &bull; Exhibition Portfolio</span>
         <h1>Preston Breeze</h1>
         <p class="hero-lead">
-          Framing stillness, natural light, and unscripted human presence across the Mountain West.
+          An exploration of scale, elemental light, and quiet human presence—from high alpine basins and glacial lakes to kinetic long-exposure studies.
         </p>
         <div class="btn-row">
-          <a href="#statement" class="btn-primary">Read Artist Statement &darr;</a>
-          <a href="#work" class="btn-outline">Inspect Full Plate</a>
+          <a href="#statement" class="btn-primary">Artist Statement &darr;</a>
+          <a href="#gallery" class="btn-outline">Enter Exhibition Gallery</a>
         </div>
       </div>
     </section>
@@ -783,18 +864,31 @@
     <section class="fifty-fifty-scroll" id="statement">
       <div class="fifty-fifty-sticky">
 
-        <!-- Left Pinned Visual Frame -->
+        <!-- Left Pinned Visual Frame (Crossfades across 3 photos as you scroll) -->
         <div class="sticky-media-box">
           <img
-            src="IMG_1000.png"
-            onerror="this.onerror=null; this.src='images/IMG_1000.png';"
-            alt="Primary Exhibition Study - IMG_1000"
-            class="zoomable"
-            id="sticky-img"
-            onclick="openLightbox(this.src)"
+            src="images/20260128_100248.png"
+            alt="High Alpine Basin"
+            class="sticky-slide active zoomable"
+            data-slide="0"
+            onclick="openLightboxBySrc(this.src, 'High Alpine Solitude')"
+          />
+          <img
+            src="images/DSC04028.png"
+            alt="Long Exposure Spark Study"
+            class="sticky-slide zoomable"
+            data-slide="1"
+            onclick="openLightboxBySrc(this.src, 'Kinetic Fire // Tunnel Study')"
+          />
+          <img
+            src="images/IMG_2267.png"
+            alt="Golden Hour Spire Silhouette"
+            class="sticky-slide zoomable"
+            data-slide="2"
+            onclick="openLightboxBySrc(this.src, 'Autumn Spire Silhouette')"
           />
           <div class="media-hud">
-            <span>PLATE 01 // IMG_1000.PNG</span>
+            <span id="hud-plate">PLATE 01 // 20260128_100248.PNG</span>
             <span id="hud-chapter">CHAPTER 01 / 03</span>
           </div>
         </div>
@@ -804,13 +898,13 @@
 
           <!-- Panel 1 -->
           <article class="scroll-panel active" data-index="0">
-            <span class="panel-counter">01 / Artist Statement &mdash; Vision</span>
-            <h2>Where Scale Meets Quiet Observation.</h2>
+            <span class="panel-counter">01 / Artist Statement &mdash; Scale &amp; Solitude</span>
+            <h2>Vast Terrain &amp; Quiet Presence.</h2>
             <p>
-              My photographic practice investigates the tension between vast environments and quiet, fleeting moments of stillness. Working across everyday landscapes and architectural spaces, I look for the split second where light, geometry, and atmosphere align.
+              My photographic work explores the contrast between monumental landscapes and the fleeting stillness of standing within them. Across glacial valleys, ridgelines, and open snowfields, a single human figure or distant peak anchors the immense scale of the natural world.
             </p>
             <p>
-              Rather than staging a scene, my approach relies on patience and deliberate framing—allowing ordinary surroundings to take on an unfamiliar cinematic weight.
+              By stepping back to let the environment breathe, these frames invite the viewer to experience the quiet weight and solitude of high-altitude spaces.
             </p>
             <div class="panel-progress-dots">
               <span class="dot active"></span>
@@ -821,13 +915,13 @@
 
           <!-- Panel 2 -->
           <article class="scroll-panel" data-index="1">
-            <span class="panel-counter">02 / Artist Statement &mdash; Process</span>
-            <h2>Light, Shadow &amp; Technical Control.</h2>
+            <span class="panel-counter">02 / Artist Statement &mdash; Light &amp; Time</span>
+            <h2>Capturing Energy Across Time.</h2>
             <p>
-              Throughout this series, exposure, depth of field, and perspective act as narrative tools. By balancing high-contrast directional light against deep shadow, each frame isolates textures and guides the viewer's eye toward subtle details that usually pass unnoticed.
+              Beyond static landscapes, the camera serves as an instrument for recording time and invisible motion. Using extended shutter speeds in pitch-black industrial tunnels, showered sparks carve incandescent geometric arcs around a still silhouette, reflecting off wet concrete below.
             </p>
             <p>
-              Every composition is treated as both a visual study and an emotional record—preserving not just what a place looked like, but the exact sensation of standing inside it.
+              Whether balancing high-dynamic-range twilight horizons or isolating warm chandelier glow in historic interiors, light is treated as a physical, sculptural material.
             </p>
             <div class="panel-progress-dots">
               <span class="dot"></span>
@@ -838,13 +932,13 @@
 
           <!-- Panel 3 -->
           <article class="scroll-panel" data-index="2">
-            <span class="panel-counter">03 / Artist Statement &mdash; Connection</span>
-            <h2>From Fine Art to Human Stories.</h2>
+            <span class="panel-counter">03 / Artist Statement &mdash; Perspective</span>
+            <h2>Reframing the Familiar.</h2>
             <p>
-              Whether documenting a personal fine-art study or photographing a wedding or live event, the core philosophy remains identical: honest observation without artificial intrusion.
+              Just as important as where the camera points is what it chooses to frame out. By shooting through foreground foliage, cathedral arches, or steep canyon walls, familiar landmarks and sacred spaces take on an intimate, contemplative distance.
             </p>
             <p>
-              This body of work invites viewers to slow down, step outside routine perception, and experience familiar spaces with renewed clarity.
+              Together, this collection documents a journey of deliberate observation—slowing down to notice where color, geometry, and atmosphere converge.
             </p>
             <div class="panel-progress-dots">
               <span class="dot"></span>
@@ -858,82 +952,204 @@
     </section>
 
     <!-- 3. GIANT EXHIBITION GALLERY SLAB -->
-    <section class="giant-section" id="work">
+    <section class="giant-section" id="gallery">
       <div class="giant-slab reveal-slab">
         <div class="slab-header">
           <div>
-            <span class="eyebrow">02 / ART 1055 Presentation</span>
-            <h2>Exhibition Plate</h2>
+            <span class="eyebrow">02 / Curated Exhibition</span>
+            <h2>Selected Works</h2>
           </div>
           <span style="font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--muted-light);">
-            CLICK IMAGE FOR FULLSCREEN CRITIQUE VIEW [+]
+            CLICK ANY PLATE FOR FULLSCREEN LIGHTBOX [+]
           </span>
         </div>
 
-        <div class="exhibition-grid">
-          <div class="plate-frame">
-            <img
-              src="IMG_1000.png"
-              onerror="this.onerror=null; this.src='images/IMG_1000.png';"
-              alt="Exhibition Plate IMG_1000"
-              class="zoomable"
-              onclick="openLightbox(this.src)"
-            />
-          </div>
+        <div class="gallery-bento">
 
-          <div class="plate-specs">
-            <div>
-              <span class="eyebrow">Featured Work</span>
-              <h3>Study I (IMG_1000)</h3>
-              <p>
-                Lead presentation piece for the ART 1055 Soft Critique. Click the plate to launch the distraction-free fullscreen viewer during class critique.
-              </p>
+          <!-- 1. Long Exposure Sparks (DSC04028.png) -->
+          <article class="art-card span-8 wide">
+            <div class="art-img-wrap">
+              <img
+                src="images/DSC04028.png"
+                alt="Long exposure sparks in tunnel with umbrella silhouette"
+                class="zoomable gallery-item"
+                data-title="I. Kinetic Shelter (Long Exposure Study)"
+              />
             </div>
+            <div class="art-caption">
+              <h3>I. Kinetic Shelter</h3>
+              <span>DSC04028 // Long Exposure</span>
+            </div>
+          </article>
 
-            <ul class="spec-list">
-              <li><span>ARTIST</span> <strong>Preston Breeze</strong></li>
-              <li><span>FILE</span> <strong>IMG_1000.png</strong></li>
-              <li><span>SERIES</span> <strong>Final Portfolio (2026)</strong></li>
-              <li><span>MEDIUM</span> <strong>Digital Photography</strong></li>
-              <li><span>LOCATION</span> <strong>Utah, USA</strong></li>
-            </ul>
-          </div>
+          <!-- 2. Golden Hour Spire (IMG_2267.png) -->
+          <article class="art-card span-4 wide">
+            <div class="art-img-wrap">
+              <img
+                src="images/IMG_2267.png"
+                alt="Spire silhouette framed by autumn leaves at sunset"
+                class="zoomable gallery-item"
+                data-title="II. Golden Hour Spire"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>II. Golden Hour Spire</h3>
+              <span>IMG_2267 // Telephoto Frame</span>
+            </div>
+          </article>
+
+          <!-- 3. Turquoise Glacial Lake Horizontal (IMG_0870.png) -->
+          <article class="art-card span-6">
+            <div class="art-img-wrap">
+              <img
+                src="images/IMG_0870.png"
+                alt="Turquoise glacial lake and sunlit mountain peaks"
+                class="zoomable gallery-item"
+                data-title="III. Glacial Turquoise I"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>III. Glacial Turquoise I</h3>
+              <span>IMG_0870 // Alpine Lake</span>
+            </div>
+          </article>
+
+          <!-- 4. Snowy Ski Bowl Panorama (20260128_100248.png) -->
+          <article class="art-card span-6">
+            <div class="art-img-wrap">
+              <img
+                src="images/20260128_100248.png"
+                alt="Wide snowy mountain basin with lone figure"
+                class="zoomable gallery-item"
+                data-title="IV. High Basin Solitude"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>IV. High Basin Solitude</h3>
+              <span>20260128 // Winter Alpine</span>
+            </div>
+          </article>
+
+          <!-- 5. Vertical Glacial Peak (IMG_0907.png) -->
+          <article class="art-card span-4 tall">
+            <div class="art-img-wrap">
+              <img
+                src="images/IMG_0907.png"
+                alt="Vertical composition of snow-capped peak over emerald water"
+                class="zoomable gallery-item"
+                data-title="V. Emerald Inlet &amp; Glaciers"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>V. Emerald Inlet</h3>
+              <span>IMG_0907 // Vertical Study</span>
+            </div>
+          </article>
+
+          <!-- 6. Sunset Mountain Ridges HDR (IMG_1700-HDR.png) -->
+          <article class="art-card span-4 tall">
+            <div class="art-img-wrap">
+              <img
+                src="images/IMG_1700-HDR.png"
+                alt="Layered mountain ridges under golden sunset clouds"
+                class="zoomable gallery-item"
+                data-title="VI. Amber Ridgelines (HDR)"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>VI. Amber Ridgelines</h3>
+              <span>IMG_1700-HDR // Atmospheric</span>
+            </div>
+          </article>
+
+          <!-- 7. Cathedral Altar & Chandelier (20261110_170508.png) -->
+          <article class="art-card span-4 tall">
+            <div class="art-img-wrap">
+              <img
+                src="images/20261110_170508.png"
+                alt="Ornate painted cathedral mural and warm chandelier"
+                class="zoomable gallery-item"
+                data-title="VII. Sacred Chiaroscuro"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>VII. Sacred Chiaroscuro</h3>
+              <span>20261110 // Interior Light</span>
+            </div>
+          </article>
+
+          <!-- 8. Primary Backdrop Study (IMG_1000.png) -->
+          <article class="art-card span-12">
+            <div class="art-img-wrap" style="max-height: 460px;">
+              <img
+                src="images/IMG_1000.png"
+                onerror="this.closest('.art-card').style.display='none';"
+                alt="Primary Backdrop Piece IMG_1000"
+                class="zoomable gallery-item"
+                data-title="VIII. Primary Exhibition Backdrop (IMG_1000)"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>VIII. Signature Backdrop Study</h3>
+              <span>IMG_1000 // Lead Plate</span>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
 
-    <!-- 4. GIANT WEDDINGS & EVENTS BUSINESS SLAB -->
-    <section class="giant-section" id="commissions">
+    <!-- 4. THE ARTIST SLAB (IMG_0881.png) -->
+    <section class="giant-section" id="artist">
       <div class="giant-slab light-slab reveal-slab">
         <div class="slab-header">
           <div>
-            <span class="eyebrow" style="color: #0284c7;">03 / Commissions &amp; Bookings</span>
-            <h2>Weddings &amp; Private Events</h2>
+            <span class="eyebrow" style="color: #0284c7;">03 / About the Photographer</span>
+            <h2>Preston Breeze</h2>
           </div>
-          <a href="mailto:prestonbreeze@gmail.com" class="btn-primary" style="background: #0c0e12; color: #fff;">
-            Inquire for Dates &rarr;
-          </a>
+          <span style="font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--muted-dark);">
+            SALT LAKE CITY, UTAH
+          </span>
         </div>
 
-        <p style="max-width: 720px; font-size: 1.1rem; color: var(--muted-dark);">
-          Blending documentary candor with editorial composition. Available for weddings, engagements, bridals, and milestone events across Salt Lake City, Park City, and the Mountain West.
-        </p>
+        <div class="artist-grid">
+          <div class="portrait-frame">
+            <img
+              src="images/IMG_0881.png"
+              alt="Portrait of Preston Breeze at an alpine lake"
+              class="zoomable"
+              onclick="openLightboxBySrc(this.src, 'Preston Breeze // Artist Portrait')"
+            />
+            <span class="portrait-tag">IMG_0881 // ARTIST PORTRAIT</span>
+          </div>
 
-        <div class="services-grid">
-          <div class="service-card">
-            <span>01 // Weddings</span>
-            <h3>Full-Day Storytelling</h3>
-            <p>From quiet preparation to late-night reception energy, captured with a clean, timeless editorial eye and high-resolution digital delivery.</p>
-          </div>
-          <div class="service-card">
-            <span>02 // Bridals &amp; Couples</span>
-            <h3>Alpine &amp; Urban Sessions</h3>
-            <p>Golden-hour portraits across Utah's canyons, salt flats, and mountain passes tailored around natural movement and genuine connection.</p>
-          </div>
-          <div class="service-card">
-            <span>03 // Events &amp; Gatherings</span>
-            <h3>Private &amp; Corporate</h3>
-            <p>Fast-turnaround coverage for concerts, university events, banquets, and brand launches with crisp lighting and candid energy.</p>
+          <div class="artist-bio">
+            <h3>Exploring the Intersection of Technical Precision &amp; Natural Wonder.</h3>
+            <p>
+              Based in Salt Lake City, Utah, Preston Breeze approaches photography with both an engineer’s eye for optics, light, and timing and an outdoorsman’s appreciation for wild alpine spaces.
+            </p>
+            <p>
+              Whether hiking into high-altitude basins, experimenting with long-exposure light painting underground, or isolating quiet architectural details at dusk, his work focuses on creating images that feel immersive, deliberate, and tactile.
+            </p>
+
+            <div class="artist-meta-grid">
+              <div>
+                <span>EXHIBITION</span>
+                <strong>ART 1055 Portfolio</strong>
+              </div>
+              <div>
+                <span>BASE</span>
+                <strong>Salt Lake City, UT</strong>
+              </div>
+              <div>
+                <span>FOCUS</span>
+                <strong>Alpine, Night &amp; Architectural</strong>
+              </div>
+              <div>
+                <span>TECHNIQUES</span>
+                <strong>Long Exposure / HDR / Telephoto</strong>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -941,57 +1157,68 @@
 
     <!-- 5. MONUMENTAL CUTOUT FINALE -->
     <section class="monument-cutout">
-      <div class="cutout-word">BREEZE STUDIO</div>
+      <div class="cutout-word">PRESTON BREEZE</div>
     </section>
   </main>
 
   <footer>
-    <span>&copy; 2026 PRESTON BREEZE PHOTOGRAPHY. ALL RIGHTS RESERVED.</span>
-    <span>SALT LAKE CITY, UT // GITHUB PAGES EDITION</span>
+    <span>&copy; 2026 PRESTON BREEZE. ALL PHOTOGRAPHS ORIGINAL WORK.</span>
+    <span>ART 1055 EXHIBITION PORTFOLIO</span>
   </footer>
 
   <!-- Fullscreen Critique Lightbox -->
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <div class="lightbox" id="lightbox" onclick="if(event.target === this) closeLightbox()">
     <img id="lightbox-img" src="" alt="Expanded critique view" />
+    <div class="lightbox-bar">
+      <button class="lb-btn" onclick="stepLightbox(-1)">&larr; Prev</button>
+      <span id="lightbox-caption">PLATE VIEW</span>
+      <button class="lb-btn" onclick="stepLightbox(1)">Next &rarr;</button>
+      <button class="lb-btn" onclick="closeLightbox()">Close [ESC]</button>
+    </div>
   </div>
 
   <script>
     const parallaxBg = document.getElementById('parallax-bg');
-    const backdropOverlay = document.getElementById('backdrop-overlay');
     const navbar = document.getElementById('navbar');
     const scrollProgress = document.getElementById('scroll-progress');
     const fiftySection = document.getElementById('statement');
     const panels = document.querySelectorAll('.scroll-panel');
+    const slides = document.querySelectorAll('.sticky-slide');
     const hudChapter = document.getElementById('hud-chapter');
-    const stickyImg = document.getElementById('sticky-img');
+    const hudPlate = document.getElementById('hud-plate');
 
-    // 1. Master Scroll Engine (Parallax + 50/50 Sticky Panel Switcher + Progress Bar)
+    const plateLabels = [
+      'PLATE 01 // 20260128_100248.PNG',
+      'PLATE 02 // DSC04028.PNG',
+      'PLATE 03 // IMG_2267.PNG'
+    ];
+
+    // 1. Master Scroll Engine (Parallax + 50/50 Sticky Panel & Image Switcher)
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const pct = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
       scrollProgress.style.width = `${pct}%`;
 
-      // Navbar glass state
       if (scrollY > 50) {
         navbar.classList.add('scrolled');
       } else {
         navbar.classList.remove('scrolled');
       }
 
-      // Smooth Parallax + Slight Scale on IMG_1000.png
-      const translateY = scrollY * -0.15;
-      const scale = 1.06 + Math.min(scrollY * 0.00008, 0.12);
+      // Smooth Parallax on Master Backdrop
+      const translateY = scrollY * -0.14;
+      const scale = 1.06 + Math.min(scrollY * 0.00007, 0.12);
       parallaxBg.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
 
-      // 50/50 Split-Screen Scroll Reveal Logic (Desktop)
-      if (window.innerWidth > 960 && fiftySection) {
+      // 50/50 Split-Screen Scroll Reveal Logic
+      if (window.innerWidth > 980 && fiftySection) {
         const rect = fiftySection.getBoundingClientRect();
         const totalScrollable = rect.height - window.innerHeight;
         const scrolledInside = -rect.top;
 
         if (scrolledInside >= 0 && scrolledInside <= totalScrollable) {
-          const progress = scrolledInside / totalScrollable; // 0 to 1
+          const progress = scrolledInside / totalScrollable;
           const activeIdx = Math.min(
             panels.length - 1,
             Math.floor(progress * panels.length)
@@ -1006,9 +1233,12 @@
             }
           });
 
+          slides.forEach((slide, idx) => {
+            slide.classList.toggle('active', idx === activeIdx);
+          });
+
           hudChapter.textContent = `CHAPTER 0${activeIdx + 1} / 03`;
-          // Subtle zoom shift on the pinned left photo per chapter
-          stickyImg.style.transform = `scale(${1 + activeIdx * 0.045})`;
+          hudPlate.textContent = plateLabels[activeIdx];
         }
       }
     }, { passive: true });
@@ -1020,7 +1250,7 @@
           entry.target.classList.add('visible');
         }
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal-slab').forEach(el => slabObserver.observe(el));
 
@@ -1046,15 +1276,39 @@
     }
     animateCursor();
 
-    document.querySelectorAll('.zoomable, a').forEach(el => {
+    document.querySelectorAll('.zoomable, a, button').forEach(el => {
       el.addEventListener('mouseenter', () => cursorRing.classList.add('active'));
       el.addEventListener('mouseleave', () => cursorRing.classList.remove('active'));
     });
 
-    // 4. Fullscreen Lightbox
-    function openLightbox(src) {
-      document.getElementById('lightbox-img').src = src;
+    // 4. Fullscreen Lightbox with Arrow Key Navigation
+    const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+    let currentLbIndex = 0;
+
+    galleryItems.forEach((img, index) => {
+      img.addEventListener('click', () => {
+        currentLbIndex = index;
+        showLightboxItem(currentLbIndex);
+      });
+    });
+
+    function showLightboxItem(index) {
+      const item = galleryItems[index];
+      if (!item) return;
+      document.getElementById('lightbox-img').src = item.src;
+      document.getElementById('lightbox-caption').textContent = item.dataset.title || 'EXHIBITION PLATE';
       document.getElementById('lightbox').classList.add('active');
+    }
+
+    function openLightboxBySrc(src, title) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-caption').textContent = title || 'EXHIBITION PLATE';
+      document.getElementById('lightbox').classList.add('active');
+    }
+
+    function stepLightbox(dir) {
+      currentLbIndex = (currentLbIndex + dir + galleryItems.length) % galleryItems.length;
+      showLightboxItem(currentLbIndex);
     }
 
     function closeLightbox() {
@@ -1062,7 +1316,11 @@
     }
 
     document.addEventListener('keydown', (e) => {
+      const lbActive = document.getElementById('lightbox').classList.contains('active');
+      if (!lbActive) return;
       if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') stepLightbox(1);
+      if (e.key === 'ArrowLeft') stepLightbox(-1);
     });
   </script>
 </body>
