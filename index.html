@@ -1,1873 +1,1692 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PRESTON BREEZE | Photography Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-dark: #07080a;
-      --slab-dark: rgba(11, 13, 17, 0.88);
-      --slab-light: rgba(246, 246, 243, 0.96);
-      --text-light: #f4f4f6;
-      --text-dark: #0c0e12;
-      --muted-light: #9ca3af;
-      --muted-dark: #4b5563;
-      --accent: #38bdf8;
-      --border-glass: rgba(255, 255, 255, 0.14);
-      --border-dark: rgba(12, 14, 18, 0.12);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      background-color: var(--bg-dark);
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: var(--text-light);
-      overflow-x: hidden;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* Top Scroll Progress Bar */
-    .scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #ffffff, var(--accent));
-      width: 0%;
-      z-index: 2000;
-      transition: width 0.08s linear;
-    }
-
-    /* Custom Follower Cursor (Desktop) */
-    .cursor-dot,
-    .cursor-ring {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      z-index: 1999;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-color 0.3s ease;
-    }
-
-    .cursor-dot {
-      width: 6px;
-      height: 6px;
-      background: #ffffff;
-    }
-
-    .cursor-ring {
-      width: 38px;
-      height: 38px;
-      border: 1px solid rgba(255, 255, 255, 0.45);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.12em;
-      color: transparent;
-    }
-
-    .cursor-ring.active {
-      width: 78px;
-      height: 78px;
-      background: rgba(255, 255, 255, 0.96);
-      color: var(--text-dark);
-      font-weight: 700;
-      border-color: transparent;
-    }
-
-    @media (max-width: 900px) {
-      .cursor-dot, .cursor-ring { display: none; }
-    }
-
-    /* Fixed Multi-Layer Crossfading Backdrop */
-    .backdrop-container {
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      overflow: hidden;
-      background: #07080a;
-    }
-
-    .bg-layer {
-      position: absolute;
-      inset: -6%;
-      width: 112%;
-      height: 112%;
-      background-size: cover;
-      background-position: center center;
-      opacity: 0;
-      will-change: transform, opacity;
-      transition: opacity 1.1s ease;
-    }
-
-    .bg-layer.active {
-      opacity: 1;
-    }
-
-    .bg-layer-1 {
-      background-image: url('IMG_1000.png'), url('images/IMG_1000.png');
-    }
-
-    .bg-layer-2 {
-      background-image: url('IMG_1715-HDR.png'), url('images/IMG_1715-HDR.png');
-    }
-
-    .bg-layer-3 {
-      background-image: url('IMG_1700-HDR.png'), url('images/IMG_1700-HDR.png');
-    }
-
-    .backdrop-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: radial-gradient(circle at 50% 30%, rgba(7, 8, 10, 0.22) 0%, rgba(7, 8, 10, 0.78) 100%);
-      pointer-events: none;
-    }
-
-    /* Sticky Telemetry Status Bar + Navbar */
-    .site-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 900;
-    }
-
-    .telemetry-bar {
-      background: rgba(7, 8, 10, 0.9);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-glass);
-      padding: 0.45rem 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted-light);
-    }
-
-    .telemetry-bar span strong {
-      color: #ffffff;
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      color: #ffffff;
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 10px var(--accent);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.35; }
-    }
-
-    .nav-bar {
-      padding: 1.35rem 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background 0.4s ease, padding 0.4s ease, border-color 0.4s ease;
-      border-bottom: 1px solid transparent;
-    }
-
-    .nav-bar.scrolled {
-      background: rgba(10, 12, 16, 0.88);
-      backdrop-filter: blur(20px);
-      padding: 0.95rem 5%;
-      border-bottom: 1px solid var(--border-glass);
-    }
-
-    .brand-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.15rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #ffffff;
-      text-decoration: none;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.73rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.85);
-      text-decoration: none;
-      position: relative;
-      padding-bottom: 4px;
-    }
-
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0%;
-      height: 2px;
-      background: #ffffff;
-      transition: width 0.3s ease;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    /* SECTION 1: Monumental Hero */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 8rem 5% 5rem;
-      position: relative;
-    }
-
-    .hero-box {
-      max-width: 1060px;
-      background: var(--slab-dark);
-      backdrop-filter: blur(22px);
-      border: 1px solid var(--border-glass);
-      padding: clamp(2.5rem, 5vw, 4.5rem);
-      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.65);
-    }
-
-    .eyebrow {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.1rem;
-      display: block;
-    }
-
-    .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2.8rem, 7.5vw, 6.2rem);
-      font-weight: 800;
-      line-height: 0.96;
-      letter-spacing: -0.03em;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-lead {
-      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
-      color: rgba(255, 255, 255, 0.84);
-      max-width: 720px;
-      font-weight: 300;
-      margin-bottom: 2.25rem;
-    }
-
-    .btn-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 1rem 2.1rem;
-      background: #ffffff;
-      color: var(--text-dark);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: transform 0.25s ease, background 0.25s ease;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      background: var(--accent);
-    }
-
-    .btn-outline {
-      display: inline-flex;
-      align-items: center;
-      padding: 1rem 2.1rem;
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      color: #ffffff;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.78rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.25s ease, border-color 0.25s ease;
-    }
-
-    .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: #ffffff;
-    }
-
-    /* SECTION 2: Big Sky 50/50 Sticky Scroll-Reveal Engine */
-    .fifty-fifty-scroll {
-      position: relative;
-      height: 320vh;
-    }
-
-    .fifty-fifty-sticky {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
-      overflow: hidden;
-      padding: 6.5rem 5% 3.5rem;
-      gap: 2.5rem;
-      align-items: center;
-    }
-
-    .sticky-media-box {
-      position: relative;
-      height: 100%;
-      max-height: 78vh;
-      background: var(--slab-dark);
-      border: 1px solid var(--border-glass);
-      overflow: hidden;
-      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
-    }
-
-    .sticky-slide {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transform: scale(1.08);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: zoom-in;
-    }
-
-    .sticky-slide.active {
-      opacity: 1;
-      transform: scale(1);
-      z-index: 2;
-    }
-
-    .media-hud {
-      position: absolute;
-      bottom: 1.5rem;
-      left: 1.5rem;
-      right: 1.5rem;
-      z-index: 5;
-      background: rgba(7, 8, 10, 0.84);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border-glass);
-      padding: 1rem 1.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .sticky-panels-stage {
-      position: relative;
-      height: 100%;
-      max-height: 78vh;
-    }
-
-    .scroll-panel {
-      position: absolute;
-      inset: 0;
-      background: var(--slab-light);
-      color: var(--text-dark);
-      padding: clamp(2rem, 4.2vw, 4rem);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      box-shadow: 0 35px 90px rgba(0, 0, 0, 0.55);
-      opacity: 0;
-      transform: translateY(70px) scale(0.97);
-      pointer-events: none;
-      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .scroll-panel.active {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-    }
-
-    .scroll-panel.passed {
-      opacity: 0;
-      transform: translateY(-70px) scale(0.97);
-    }
-
-    .panel-counter {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #0284c7;
-      margin-bottom: 1rem;
-    }
-
-    .scroll-panel h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1.7rem, 3vw, 2.65rem);
-      font-weight: 800;
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
-      margin-bottom: 1.4rem;
-      color: var(--text-dark);
-    }
-
-    .scroll-panel p {
-      font-size: 1.02rem;
-      color: var(--muted-dark);
-      margin-bottom: 1.15rem;
-    }
-
-    .panel-progress-dots {
-      display: flex;
-      gap: 0.6rem;
-      margin-top: 1.5rem;
-    }
-
-    .dot {
-      height: 4px;
-      flex: 1;
-      background: rgba(12, 14, 18, 0.15);
-      transition: background 0.3s ease;
-    }
-
-    .dot.active {
-      background: var(--text-dark);
-    }
-
-    /* SECTION 3: Giant Exhibition Bento Gallery Slabs */
-    .giant-section {
-      padding: 4.5rem 5%;
-      position: relative;
-      z-index: 5;
-    }
-
-    .giant-slab {
-      max-width: 1360px;
-      margin: 0 auto;
-      background: var(--slab-dark);
-      backdrop-filter: blur(24px);
-      border: 1px solid var(--border-glass);
-      padding: clamp(2rem, 5vw, 5rem);
-      box-shadow: 0 40px 110px rgba(0, 0, 0, 0.75);
-      opacity: 0;
-      transform: translateY(60px);
-      transition: opacity 0.85s ease, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .giant-slab.light-slab {
-      background: var(--slab-light);
-      color: var(--text-dark);
-      border: 1px solid var(--border-dark);
-    }
-
-    .giant-slab.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .slab-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      margin-bottom: 3rem;
-      padding-bottom: 1.75rem;
-      border-bottom: 1px solid var(--border-glass);
-    }
-
-    .light-slab .slab-header {
-      border-bottom-color: var(--border-dark);
-    }
-
-    .slab-header h2 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2rem, 4.5vw, 3.5rem);
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: -0.02em;
-      line-height: 1;
-    }
-
-    /* Curated 12-Column Exhibition Grid */
-    .gallery-bento {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 1.75rem;
-    }
-
-    .art-card {
-      position: relative;
-      background: #050608;
-      border: 1px solid var(--border-glass);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .span-8 { grid-column: span 8; }
-    .span-6 { grid-column: span 6; }
-    .span-4 { grid-column: span 4; }
-    .span-12 { grid-column: span 12; }
-
-    .art-img-wrap {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      min-height: 380px;
-      overflow: hidden;
-    }
-
-    .art-card.tall .art-img-wrap {
-      min-height: 540px;
-    }
-
-    .art-card.wide .art-img-wrap {
-      min-height: 480px;
-    }
-
-    .art-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      cursor: zoom-in;
-      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
-    }
-
-    .art-card:hover .art-img-wrap img {
-      transform: scale(1.045);
-    }
-
-    .art-caption {
-      padding: 1.15rem 1.4rem;
-      background: rgba(10, 12, 16, 0.95);
-      border-top: 1px solid var(--border-glass);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .art-caption h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.02rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      color: #ffffff;
-    }
-
-    .art-caption span {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--muted-light);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    /* SECTION 4: Meet the Artist Slab (IMG_1828_1.png + IMG_0881.png) */
-    .artist-grid {
-      display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
-      gap: 3.5rem;
-      align-items: center;
-    }
-
-    .portrait-frame {
-      position: relative;
-      border: 1px solid var(--border-dark);
-      overflow: hidden;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
-      background: #000;
-      cursor: pointer;
-    }
-
-    .portrait-frame img {
-      width: 100%;
-      height: 540px;
-      object-fit: cover;
-      object-position: center center;
-      display: block;
-      transition: transform 0.7s ease;
-    }
-
-    .portrait-frame:hover img {
-      transform: scale(1.03);
-    }
-
-    .portrait-tag {
-      position: absolute;
-      bottom: 1rem;
-      left: 1rem;
-      right: 1rem;
-      background: rgba(12, 14, 18, 0.9);
-      color: #ffffff;
-      padding: 0.6rem 1rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .artist-bio h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1.75rem, 3vw, 2.5rem);
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-      line-height: 1.1;
-    }
-
-    .artist-bio p {
-      font-size: 1.05rem;
-      color: var(--muted-dark);
-      margin-bottom: 1.25rem;
-    }
-
-    .artist-meta-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
-      margin-top: 2rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border-dark);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.78rem;
-    }
-
-    .artist-meta-grid div span {
-      display: block;
-      color: var(--muted-dark);
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      margin-bottom: 0.25rem;
-    }
-
-    /* SECTION 5: Monumental Cutout Finale */
-    .monument-cutout {
-      position: relative;
-      padding: 7rem 5% 3rem;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    .cutout-word {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(3.2rem, 12.5vw, 12rem);
-      line-height: 0.88;
-      letter-spacing: -0.04em;
-      text-transform: uppercase;
-      color: transparent;
-      -webkit-text-stroke: 2px rgba(255, 255, 255, 0.85);
-      text-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-      user-select: none;
-    }
-
-    footer {
-      background: rgba(7, 8, 10, 0.94);
-      border-top: 1px solid var(--border-glass);
-      padding: 2.5rem 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--muted-light);
-    }
-
-    /* Fullscreen Lightbox with Single & Dual-Portrait Support */
-    .lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(5, 6, 8, 0.96);
-      z-index: 3000;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-    }
-
-    .lightbox.active {
-      display: flex;
-    }
-
-    .lightbox-single-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .lightbox-single-wrap img {
-      max-width: 90vw;
-      max-height: 80vh;
-      object-fit: contain;
-      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85);
-      border: 1px solid var(--border-glass);
-    }
-
-    .lightbox-dual-wrap {
-      display: none;
-      gap: 2rem;
-      max-width: 92vw;
-      max-height: 78vh;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .lightbox-dual-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .lightbox-dual-card img {
-      max-width: 43vw;
-      max-height: 72vh;
-      object-fit: contain;
-      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85);
-      border: 1px solid var(--border-glass);
-    }
-
-    .lightbox-dual-card span {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      color: var(--muted-light);
-      text-transform: uppercase;
-    }
-
-    .lightbox-bar {
-      margin-top: 1.4rem;
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.78rem;
-      color: var(--text-light);
-      letter-spacing: 0.12em;
-    }
-
-    .lb-btn {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--border-glass);
-      color: #ffffff;
-      padding: 0.5rem 1rem;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.75rem;
-      cursor: pointer;
-      text-transform: uppercase;
-      transition: background 0.2s ease;
-    }
-
-    .lb-btn:hover {
-      background: #ffffff;
-      color: #000000;
-    }
-
-    @media (max-width: 980px) {
-      .fifty-fifty-scroll {
-        height: auto;
-      }
-      .fifty-fifty-sticky {
-        position: relative;
-        height: auto;
-        grid-template-columns: 1fr;
-        padding: 4rem 5%;
-      }
-      .sticky-media-box {
-        height: 420px;
-      }
-      .sticky-panels-stage {
-        height: auto;
-        max-height: none;
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-      }
-      .scroll-panel {
-        position: relative;
-        opacity: 1 !important;
-        transform: none !important;
-        pointer-events: auto;
-      }
-      .span-8, .span-6, .span-4 {
-        grid-column: span 12;
-      }
-      .artist-grid {
-        grid-template-columns: 1fr;
-      }
-      .telemetry-bar {
-        display: none;
-      }
-      .lightbox-dual-wrap {
-        flex-direction: column;
-        overflow-y: auto;
-      }
-      .lightbox-dual-card img {
-        max-width: 85vw;
-        max-height: 36vh;
-      }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PRESTON BREEZE | Photography Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #07080a;
+            --slab-dark: rgba(11, 13, 17, 0.88);
+            --slab-light: rgba(246, 246, 243, 0.96);
+            --text-light: #f4f4f6;
+            --text-dark: #0c0e12;
+            --muted-light: #9ca3af;
+            --muted-dark: #4b5563;
+            --accent: #38bdf8;
+            --border-glass: rgba(255, 255, 255, 0.14);
+            --border-dark: rgba(12, 14, 18, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-dark);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Analog Film Grain Overlay */
+        .film-grain {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.055;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        /* Top Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ffffff, var(--accent));
+            width: 0%;
+            z-index: 2000;
+            transition: width 0.08s linear;
+        }
+
+        /* Custom Follower Cursor (Desktop) */
+        .cursor-dot, .cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1999;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: #ffffff;
+        }
+
+        .cursor-ring {
+            width: 38px;
+            height: 38px;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            letter-spacing: 0.12em;
+            color: transparent;
+        }
+
+        .cursor-ring.active {
+            width: 78px;
+            height: 78px;
+            background: rgba(255, 255, 255, 0.96);
+            color: var(--text-dark);
+            font-weight: 700;
+            border-color: transparent;
+        }
+
+        @media (max-width: 900px) {
+            .cursor-dot, .cursor-ring {
+                display: none;
+            }
+        }
+
+        /* Fixed Multi-Layer Crossfading Backdrop (Increased boundaries for amplified parallax) */
+        .backdrop-container {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            overflow: hidden;
+            background: #07080a;
+        }
+
+        .bg-layer {
+            position: absolute;
+            inset: -12%; 
+            width: 124%; 
+            height: 124%; 
+            background-size: cover;
+            background-position: center center;
+            opacity: 0;
+            will-change: transform, opacity;
+            transition: opacity 1.1s ease;
+        }
+
+        .bg-layer.active {
+            opacity: 1;
+        }
+
+        .bg-layer-1 { background-image: url('IMG_1000.png'), url('images/IMG_1000.png'); }
+        .bg-layer-2 { background-image: url('IMG_1715-HDR.png'), url('images/IMG_1715-HDR.png'); }
+        .bg-layer-3 { background-image: url('IMG_1700-HDR.png'), url('images/IMG_1700-HDR.png'); }
+
+        .backdrop-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 30%, rgba(7, 8, 10, 0.22) 0%, rgba(7, 8, 10, 0.78) 100%);
+            pointer-events: none;
+        }
+
+        /* Sticky Telemetry Status Bar + Navbar */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 900;
+        }
+
+        .telemetry-bar {
+            background: rgba(7, 8, 10, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glass);
+            padding: 0.45rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted-light);
+        }
+
+        .telemetry-bar span strong {
+            color: #ffffff;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            color: #ffffff;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.35; }
+        }
+
+        .nav-bar {
+            padding: 1.35rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.4s ease, padding 0.4s ease, border-color 0.4s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav-bar.scrolled {
+            background: rgba(10, 12, 16, 0.88);
+            backdrop-filter: blur(20px);
+            padding: 0.95rem 5%;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .brand-logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.15rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.73rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0%;
+            height: 2px;
+            background: #ffffff;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* SECTION 1: Monumental Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 8rem 5% 5rem;
+            position: relative;
+        }
+
+        .hero-box {
+            max-width: 1060px;
+            background: var(--slab-dark);
+            backdrop-filter: blur(22px);
+            border: 1px solid var(--border-glass);
+            padding: clamp(2.5rem, 5vw, 4.5rem);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.65);
+        }
+
+        .eyebrow {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1.1rem;
+            display: block;
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.8rem, 7.5vw, 6.2rem);
+            font-weight: 800;
+            line-height: 0.96;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-lead {
+            font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+            color: rgba(255, 255, 255, 0.84);
+            max-width: 720px;
+            font-weight: 300;
+            margin-bottom: 2.25rem;
+        }
+
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.1rem;
+            background: #ffffff;
+            color: var(--text-dark);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: transform 0.25s ease, background 0.25s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            background: var(--accent);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2.1rem;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: #ffffff;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;
+        }
+
+        /* SECTION 2: Big Sky 50/50 Sticky Scroll-Reveal Engine */
+        .fifty-fifty-scroll {
+            position: relative;
+            height: 320vh;
+        }
+
+        .fifty-fifty-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.08fr 0.92fr;
+            overflow: hidden;
+            padding: 6.5rem 5% 3.5rem;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .sticky-media-box {
+            position: relative;
+            height: 100%;
+            max-height: 78vh;
+            background: var(--slab-dark);
+            border: 1px solid var(--border-glass);
+            overflow: hidden;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
+        }
+
+        .sticky-slide {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.08);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: zoom-in;
+        }
+
+        .sticky-slide.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 2;
+        }
+
+        .media-hud {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            right: 1.5rem;
+            z-index: 5;
+            background: rgba(7, 8, 10, 0.84);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            padding: 1rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .sticky-panels-stage {
+            position: relative;
+            height: 100%;
+            max-height: 78vh;
+        }
+
+        .scroll-panel {
+            position: absolute;
+            inset: 0;
+            background: var(--slab-light);
+            color: var(--text-dark);
+            padding: clamp(2rem, 4.2vw, 4rem);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.55);
+            opacity: 0;
+            transform: translateY(70px) scale(0.97);
+            pointer-events: none;
+            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scroll-panel.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .scroll-panel.passed {
+            opacity: 0;
+            transform: translateY(-70px) scale(0.97);
+        }
+
+        .panel-counter {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #0284c7;
+            margin-bottom: 1rem;
+        }
+
+        .scroll-panel h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.7rem, 3vw, 2.65rem);
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            margin-bottom: 1.4rem;
+            color: var(--text-dark);
+        }
+
+        .scroll-panel p {
+            font-size: 1.02rem;
+            color: var(--muted-dark);
+            margin-bottom: 1.15rem;
+        }
+
+        .panel-progress-dots {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 1.5rem;
+        }
+
+        .dot {
+            height: 4px;
+            flex: 1;
+            background: rgba(12, 14, 18, 0.15);
+            transition: background 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--text-dark);
+        }
+
+        /* SECTION 3: Giant Exhibition Bento Gallery Slabs */
+        .giant-section {
+            padding: 4.5rem 5%;
+            position: relative;
+            z-index: 5;
+        }
+
+        .giant-slab {
+            max-width: 1360px;
+            margin: 0 auto;
+            background: var(--slab-dark);
+            backdrop-filter: blur(24px);
+            border: 1px solid var(--border-glass);
+            padding: clamp(2rem, 5vw, 5rem);
+            box-shadow: 0 40px 110px rgba(0, 0, 0, 0.75);
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 0.85s ease, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .giant-slab.light-slab {
+            background: var(--slab-light);
+            color: var(--text-dark);
+            border: 1px solid var(--border-dark);
+        }
+
+        .giant-slab.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slab-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1.75rem;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .light-slab .slab-header {
+            border-bottom-color: var(--border-dark);
+        }
+
+        .slab-header h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 4.5vw, 3.5rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        /* Curated 12-Column Exhibition Grid */
+        .gallery-bento {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.75rem;
+        }
+
+        .art-card {
+            position: relative;
+            background: #050608;
+            border: 1px solid var(--border-glass);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .span-8 { grid-column: span 8; }
+        .span-6 { grid-column: span 6; }
+        .span-4 { grid-column: span 4; }
+        .span-12 { grid-column: span 12; }
+
+        .art-img-wrap {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-height: 380px;
+            overflow: hidden;
+        }
+
+        .art-card.tall .art-img-wrap { min-height: 540px; }
+        .art-card.wide .art-img-wrap { min-height: 480px; }
+
+        .art-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            cursor: zoom-in;
+            transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+        }
+
+        .art-card:hover .art-img-wrap img {
+            transform: scale(1.045);
+        }
+
+        .art-caption {
+            padding: 1.15rem 1.4rem;
+            background: rgba(10, 12, 16, 0.95);
+            border-top: 1px solid var(--border-glass);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .art-caption h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.02rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: #ffffff;
+        }
+
+        .art-caption span {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--muted-light);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* SECTION 4: Meet the Artist Slab */
+        .artist-grid {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: 3.5rem;
+            align-items: center;
+        }
+
+        .portrait-frame {
+            position: relative;
+            border: 1px solid var(--border-dark);
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
+            background: #000;
+            cursor: pointer;
+        }
+
+        .portrait-frame img {
+            width: 100%;
+            height: 540px;
+            object-fit: cover;
+            object-position: center center;
+            display: block;
+            transition: transform 0.7s ease;
+        }
+
+        .portrait-frame:hover img {
+            transform: scale(1.03);
+        }
+
+        .portrait-tag {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            background: rgba(12, 14, 18, 0.9);
+            color: #ffffff;
+            padding: 0.6rem 1rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .artist-bio h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+            line-height: 1.1;
+        }
+
+        .artist-bio p {
+            font-size: 1.05rem;
+            color: var(--muted-dark);
+            margin-bottom: 1.25rem;
+        }
+
+        .artist-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-dark);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+        }
+
+        .artist-meta-grid div span {
+            display: block;
+            color: var(--muted-dark);
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            margin-bottom: 0.25rem;
+        }
+
+        /* SECTION 5: Monumental Cutout Finale */
+        .monument-cutout {
+            position: relative;
+            padding: 7rem 5% 3rem;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .cutout-word {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: clamp(3.2rem, 12.5vw, 12rem);
+            line-height: 0.88;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            
+            /* The fix for the wonky stroke: Solid gradient clip instead of hollow stroke */
+            background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.15) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
+            user-select: none;
+        }
+
+        footer {
+            background: rgba(7, 8, 10, 0.94);
+            border-top: 1px solid var(--border-glass);
+            padding: 2.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--muted-light);
+        }
+
+        /* Fullscreen Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 6, 8, 0.96);
+            z-index: 3000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-single-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-single-wrap img {
+            max-width: 90vw;
+            max-height: 80vh;
+            object-fit: contain;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85);
+            border: 1px solid var(--border-glass);
+        }
+
+        .lightbox-dual-wrap {
+            display: none;
+            gap: 2rem;
+            max-width: 92vw;
+            max-height: 78vh;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-dual-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .lightbox-dual-card img {
+            max-width: 43vw;
+            max-height: 72vh;
+            object-fit: contain;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85);
+            border: 1px solid var(--border-glass);
+        }
+
+        .lightbox-dual-card span {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            color: var(--muted-light);
+            text-transform: uppercase;
+        }
+
+        .lightbox-bar {
+            margin-top: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--text-light);
+            letter-spacing: 0.12em;
+        }
+
+        .lb-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-glass);
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.2s ease;
+        }
+
+        .lb-btn:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        @media (max-width: 980px) {
+            .fifty-fifty-scroll { height: auto; }
+            .fifty-fifty-sticky {
+                position: relative;
+                height: auto;
+                grid-template-columns: 1fr;
+                padding: 4rem 5%;
+            }
+            .sticky-media-box { height: 420px; }
+            .sticky-panels-stage {
+                height: auto;
+                max-height: none;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .scroll-panel {
+                position: relative;
+                opacity: 1 !important;
+                transform: none !important;
+                pointer-events: auto;
+            }
+            .span-8, .span-6, .span-4 { grid-column: span 12; }
+            .artist-grid { grid-template-columns: 1fr; }
+            .telemetry-bar { display: none; }
+            .lightbox-dual-wrap { flex-direction: column; overflow-y: auto; }
+            .lightbox-dual-card img { max-width: 85vw; max-height: 36vh; }
+        }
+    </style>
 </head>
 <body>
-
-  <!-- Top Scroll Progress Indicator -->
-  <div class="scroll-progress" id="scroll-progress"></div>
-
-  <!-- Custom Interactive Cursor -->
-  <div class="cursor-dot" id="cursor-dot"></div>
-  <div class="cursor-ring" id="cursor-ring">VIEW</div>
-
-  <!-- Multi-Backdrop Container (Crossfades across 3 backgrounds as you scroll down the page) -->
-  <div class="backdrop-container">
-    <div class="bg-layer bg-layer-1 active" id="bg-layer-1"></div>
-    <div class="bg-layer bg-layer-2" id="bg-layer-2"></div>
-    <div class="bg-layer bg-layer-3" id="bg-layer-3"></div>
-  </div>
-  <div class="backdrop-overlay"></div>
-
-  <!-- Sticky Header + Telemetry Bar -->
-  <header class="site-header">
-    <div class="telemetry-bar">
-      <span>PORTFOLIO: <strong>ART 1055 // UNIVERSITY OF UTAH</strong></span>
-      <span class="status-pill">
-        <span class="status-dot"></span>
-        SALT LAKE CITY, UTAH // PHOTOGRAPHY ARCHIVE
-      </span>
-    </div>
-    <nav class="nav-bar" id="navbar">
-      <a href="#" class="brand-logo">Preston Breeze</a>
-      <div class="nav-links">
-        <a href="#statement">01 / Philosophy</a>
-        <a href="#music">02 / Music</a>
-        <a href="#scenery">03 / Scenery</a>
-        <a href="#everything-else">04 / Perspectives</a>
-        <a href="#artist">05 / The Artist</a>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-    <!-- 1. MONUMENTAL HERO -->
-    <section class="hero">
-      <div class="hero-box">
-        <span class="eyebrow">Photography Portfolio &bull; Sound, Light &amp; Place</span>
-        <h1>Preston Breeze</h1>
-        <p class="hero-lead">
-          Capturing the genuine vibe of a moment, from translating the energy of live music and late night sessions into light, to standing quiet in big mountain spaces.
-        </p>
-        <div class="btn-row">
-          <a href="#statement" class="btn-primary">The Philosophy &darr;</a>
-          <a href="#music" class="btn-outline">Explore the Galleries</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. BIG SKY 50/50 STICKY SCROLL-REVEAL (PHILOSOPHY) -->
-    <section class="fifty-fifty-scroll" id="statement">
-      <div class="fifty-fifty-sticky">
-
-        <!-- Left Pinned Visual Frame (Crossfades across 3 photos as you scroll) -->
-        <div class="sticky-media-box">
-          <img
-            src="IMG_1929.png"
-            alt="Music session under neon light"
-            class="sticky-slide active zoomable"
-            data-slide="0"
-            onclick="openLightboxBySrc(this.src, 'Neon Jam Session')"
-          />
-          <img
-            src="20260128_100248.png"
-            alt="High Alpine Basin"
-            class="sticky-slide zoomable"
-            data-slide="1"
-            onclick="openLightboxBySrc(this.src, 'High Alpine Basin')"
-          />
-          <img
-            src="DSC04028.png"
-            alt="Long Exposure Spark Study"
-            class="sticky-slide zoomable"
-            data-slide="2"
-            onclick="openLightboxBySrc(this.src, 'Tunnel Sparks')"
-          />
-          <div class="media-hud">
-            <span id="hud-plate">VISUALIZING SOUND</span>
-            <span id="hud-chapter">PART 01 / 03</span>
-          </div>
-        </div>
-
-        <!-- Right Sliding Giant Text Boxes -->
-        <div class="sticky-panels-stage">
-
-          <!-- Panel 1: Sound & Vibe -->
-          <article class="scroll-panel active" data-index="0">
-            <span class="panel-counter">01 / Philosophy / Sound &amp; Light</span>
-            <h2>Seeing the Sound.</h2>
-            <p>
-              For me, photography is all about catching the actual vibe of a place and what it felt like to be there. That comes through strongest in my music photos, where the goal is to make you almost hear the room through the framing and the light.
-            </p>
-            <p>
-              Whether it is the warm glow of a tube amp in a quiet bedroom, neon colors washing over a late night jam with friends, or the focus of someone locked into a riff, I use color and shadow to turn sound into something visual.
-            </p>
-            <div class="panel-progress-dots">
-              <span class="dot active"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-            </div>
-          </article>
-
-          <!-- Panel 2: Scenery & Scale -->
-          <article class="scroll-panel" data-index="1">
-            <span class="panel-counter">02 / Philosophy / Mountain Air</span>
-            <h2>The Vibe of a Place.</h2>
-            <p>
-              Out in the mountains, that same mindset shifts toward scale and atmosphere. I want the viewer to feel the cold air off a glacial lake, the stillness of a snowy bowl before a run, or the last warm light hitting the canyon ridges at sunset.
-            </p>
-            <p>
-              Stepping back to include a friend on a cliff edge or a chairlift hanging in the distance gives the landscape real weight without overcomplicating the shot.
-            </p>
-            <div class="panel-progress-dots">
-              <span class="dot"></span>
-              <span class="dot active"></span>
-              <span class="dot"></span>
-            </div>
-          </article>
-
-          <!-- Panel 3: Motion & Everyday Moments -->
-          <article class="scroll-panel" data-index="2">
-            <span class="panel-counter">03 / Philosophy / Timing &amp; Energy</span>
-            <h2>Chasing Light and Motion.</h2>
-            <p>
-              Some of the best frames happen when you slow the shutter down or just pay attention to how light hits a space. Spinning sparks in a dark tunnel, catching wildlife in the brush, or looking up inside an old cathedral all come down to patience and timing.
-            </p>
-            <p>
-              Every photo in this collection is a piece of how I experience the world, mixing music, outdoor adventure, and the people around me.
-            </p>
-            <div class="panel-progress-dots">
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot active"></span>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- 3A. GALLERY SECTION 1: MUSIC & SOUND -->
-    <section class="giant-section" id="music">
-      <div class="giant-slab reveal-slab">
-        <div class="slab-header">
-          <div>
-            <span class="eyebrow">02 / Gallery Part I</span>
-            <h2>Music &amp; Sound</h2>
-          </div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--muted-light);">
-            TRANSLATING TONE, RHYTHM &amp; ROOM ENERGY INTO LIGHT [+]
-          </span>
-        </div>
-
-        <div class="gallery-bento">
-
-          <!-- 1. Neon Jam Session (IMG_1929.png) -->
-          <article class="art-card span-8 wide">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1929.png"
-                alt="Two musicians playing guitar under neon blue and magenta lighting"
-                class="zoomable gallery-item"
-                data-title="Neon Jam Session"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Neon Jam Session</h3>
-              <span>Studio Color &amp; Rhythm</span>
-            </div>
-          </article>
-
-          <!-- 2. Stratocaster & Tube Amp (IMG_1897.png) -->
-          <article class="art-card span-4 wide">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1897.png"
-                alt="White Fender Stratocaster and tube amplifier in warm light"
-                class="zoomable gallery-item"
-                data-title="Warm Tube Tone"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Warm Tube Tone</h3>
-              <span>Stratocaster &amp; Amp</span>
-            </div>
-          </article>
-
-          <!-- 3. Crimson Fretwork Close-Up (IMG_1954.png) -->
-          <article class="art-card span-6">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1954.png"
-                alt="Close-up of hands playing electric guitar in red lighting"
-                class="zoomable gallery-item"
-                data-title="Crimson Fretwork"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Crimson Fretwork</h3>
-              <span>Low-Key Stage Light</span>
-            </div>
-          </article>
-
-          <!-- 4. Monochrome Acoustic Study (IMG_1978.png) -->
-          <article class="art-card span-6">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1978.png"
-                alt="Black and white portrait playing acoustic guitar outdoors"
-                class="zoomable gallery-item"
-                data-title="Unplugged in Black &amp; White"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Unplugged in Black &amp; White</h3>
-              <span>Acoustic Session</span>
-            </div>
-          </article>
-
-          <!-- 5. Studio Flow (IMG_1860_2.png) -->
-          <article class="art-card span-4">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1860_2.png"
-                alt="Playing white Stratocaster in soft directional studio lighting"
-                class="zoomable gallery-item"
-                data-title="Lost in the Mix"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Lost in the Mix</h3>
-              <span>Solo Session</span>
-            </div>
-          </article>
-
-          <!-- 6. Vocal / Room Vibe (IMG_2087.png) -->
-          <article class="art-card span-4">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_2087.png"
-                alt="Candid warm-lit room portrait"
-                class="zoomable gallery-item"
-                data-title="Mid-Song Energy"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Mid-Song Energy</h3>
-              <span>Warm Room Light</span>
-            </div>
-          </article>
-
-          <!-- 7. Late Night Practice (IMG_1828_1.png) -->
-          <article class="art-card span-4">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1828_1.png"
-                alt="Playing electric guitar in Moody bedroom studio lighting"
-                class="zoomable gallery-item"
-                data-title="Late Night Groove"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Late Night Groove</h3>
-              <span>Home Studio Vibe</span>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- 3B. GALLERY SECTION 2: SCENERY & ALPINE -->
-    <section class="giant-section" id="scenery">
-      <div class="giant-slab reveal-slab">
-        <div class="slab-header">
-          <div>
-            <span class="eyebrow">03 / Gallery Part II</span>
-            <h2>Scenery &amp; Alpine</h2>
-          </div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--muted-light);">
-            MOUNTAIN BASINS, GLACIAL WATER &amp; CANYON LIGHT [+]
-          </span>
-        </div>
-
-        <div class="gallery-bento">
-
-          <!-- 1. Autumn Canyon Layers (IMG_1715-HDR.png) -->
-          <article class="art-card span-8 wide">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1715-HDR.png"
-                alt="Vibrant autumn leaves and layered canyon mountains"
-                class="zoomable gallery-item"
-                data-title="Wasatch Autumn Layers"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Wasatch Autumn Layers</h3>
-              <span>Canyon Dusk</span>
-            </div>
-          </article>
-
-          <!-- 2. Great Western Overlook (GreatWesternOverlook.png) -->
-          <article class="art-card span-4 wide">
-            <div class="art-img-wrap">
-              <img
-                src="GreatWesternOverlook.png"
-                alt="Snow-covered mountain ridgelines from Great Western Overlook"
-                class="zoomable gallery-item"
-                data-title="Great Western Overlook"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Great Western Overlook</h3>
-              <span>Winter Ridgeline</span>
-            </div>
-          </article>
-
-          <!-- 3. Turquoise Glacial Lake (IMG_0870.png) -->
-          <article class="art-card span-6">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_0870.png"
-                alt="Turquoise glacial lake and sunlit mountain peaks"
-                class="zoomable gallery-item"
-                data-title="Glacial Turquoise"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Glacial Turquoise</h3>
-              <span>High Mountain Lake</span>
-            </div>
-          </article>
-
-          <!-- 4. Snowy Ski Bowl Panorama (20260128_100248.png) -->
-          <article class="art-card span-6">
-            <div class="art-img-wrap">
-              <img
-                src="20260128_100248.png"
-                alt="Wide snowy mountain basin with lone figure"
-                class="zoomable gallery-item"
-                data-title="Open Bowl Solitude"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Open Bowl Solitude</h3>
-              <span>Alpine Winter</span>
-            </div>
-          </article>
-
-          <!-- 5. Vertical Glacial Peak (IMG_0907.png) -->
-          <article class="art-card span-4 tall">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_0907.png"
-                alt="Vertical composition of snow-capped peak over emerald water"
-                class="zoomable gallery-item"
-                data-title="Emerald Inlet"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Emerald Inlet</h3>
-              <span>Glacial Valley</span>
-            </div>
-          </article>
-
-          <!-- 6. Sunset Mountain Ridges HDR (IMG_1700-HDR.png) -->
-          <article class="art-card span-4 tall">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1700-HDR.png"
-                alt="Layered mountain ridges under golden sunset clouds"
-                class="zoomable gallery-item"
-                data-title="Amber Ridgelines"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Amber Ridgelines</h3>
-              <span>Sunset Glow</span>
-            </div>
-          </article>
-
-          <!-- 7. Vertical Glacial Basin (IMG_0965.png) -->
-          <article class="art-card span-4 tall">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_0965.png"
-                alt="High altitude vertical perspective of glacial basin"
-                class="zoomable gallery-item"
-                data-title="Deep Valley View"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Deep Valley View</h3>
-              <span>Above the Timberline</span>
-            </div>
-          </article>
-
-          <!-- 8. Canopy Sunburst (IMG_1723.png) -->
-          <article class="art-card span-4">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1723.png"
-                alt="Sunburst breaking through green forest canopy over mountain valley"
-                class="zoomable gallery-item"
-                data-title="Canopy Sunburst"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Canopy Sunburst</h3>
-              <span>First Light</span>
-            </div>
-          </article>
-
-          <!-- 9. Crimson & Gold Leaves (IMG_1729.png) -->
-          <article class="art-card span-4">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1729.png"
-                alt="Scarlet maple leaves against golden canyon slopes"
-                class="zoomable gallery-item"
-                data-title="Fall Color Contrast"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Fall Color Contrast</h3>
-              <span>Autumn Canyon</span>
-            </div>
-          </article>
-
-          <!-- 10. Golden Canyon Slopes (IMG_1749.png) -->
-          <article class="art-card span-4">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1749.png"
-                alt="Sweeping mountain ridges dressed in autumn gold"
-                class="zoomable gallery-item"
-                data-title="Golden Divide"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Golden Divide</h3>
-              <span>Mountain Ridges</span>
-            </div>
-          </article>
-
-          <!-- 11. Lead Alpine Horizon (IMG_1000.png) -->
-          <article class="art-card span-12">
-            <div class="art-img-wrap" style="max-height: 460px;">
-              <img
-                src="IMG_1000.png"
-                alt="Pine forest and bright blue alpine peaks"
-                class="zoomable gallery-item"
-                data-title="Bluebird Horizon"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Bluebird Horizon</h3>
-              <span>Signature Mountain View</span>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- 3C. GALLERY SECTION 3: EVERYTHING ELSE (LIGHT, WILDLIFE, ARCHITECTURE & PEOPLE) -->
-    <section class="giant-section" id="everything-else">
-      <div class="giant-slab reveal-slab">
-        <div class="slab-header">
-          <div>
-            <span class="eyebrow">04 / Gallery Part III</span>
-            <h2>Light, Wildlife &amp; Places</h2>
-          </div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--muted-light);">
-            LONG EXPOSURES, ARCHITECTURE, WILDLIFE &amp; TRAVEL [+]
-          </span>
-        </div>
-
-        <div class="gallery-bento">
-
-          <!-- 1. Long Exposure Sparks (DSC04028.png) -->
-          <article class="art-card span-8 wide">
-            <div class="art-img-wrap">
-              <img
-                src="DSC04028.png"
-                alt="Long exposure sparks in tunnel with umbrella silhouette"
-                class="zoomable gallery-item"
-                data-title="Fire in the Tunnel"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Fire in the Tunnel</h3>
-              <span>Long Exposure Sparks</span>
-            </div>
-          </article>
-
-          <!-- 2. Golden Hour Spire (IMG_2267.png) -->
-          <article class="art-card span-4 wide">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_2267.png"
-                alt="Spire silhouette framed by autumn leaves at sunset"
-                class="zoomable gallery-item"
-                data-title="Golden Hour Spires"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Golden Hour Spires</h3>
-              <span>Framed Through Leaves</span>
-            </div>
-          </article>
-
-          <!-- 3. Cathedral Altar & Chandelier (20261110_170508.png) -->
-          <article class="art-card span-4 tall">
-            <div class="art-img-wrap">
-              <img
-                src="20261110_170508.png"
-                alt="Ornate painted cathedral mural and warm chandelier"
-                class="zoomable gallery-item"
-                data-title="Cathedral Glow"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Cathedral Glow</h3>
-              <span>Interior Light</span>
-            </div>
-          </article>
-
-          <!-- 4. Dusk Spires (IMG_2327.png) -->
-          <article class="art-card span-4 tall">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_2327.png"
-                alt="Salt Lake Temple spires silhouetted against an orange sky"
-                class="zoomable gallery-item"
-                data-title="Sunset Silhouette"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Sunset Silhouette</h3>
-              <span>Salt Lake City</span>
-            </div>
-          </article>
-
-          <!-- 5. Vertical Bighorn Sheep (IMG_1099.png) -->
-          <article class="art-card span-4 tall">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1099.png"
-                alt="Vertical portrait of a bighorn sheep on rocky terrain"
-                class="zoomable gallery-item"
-                data-title="Mountain Lookout"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Mountain Lookout</h3>
-              <span>Alpine Wildlife</span>
-            </div>
-          </article>
-
-          <!-- 6. Schloss Lichtenstein (schlosslichtenstein.png) -->
-          <article class="art-card span-4">
-            <div class="art-img-wrap">
-              <img
-                src="schlosslichtenstein.png"
-                alt="Schloss Lichtenstein castle perched on a cliff in autumn"
-                class="zoomable gallery-item"
-                data-title="Schloss Lichtenstein"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Schloss Lichtenstein</h3>
-              <span>Cliffside Castle in Germany</span>
-            </div>
-          </article>
-
-          <!-- 7. Gothic Portal (IMG_2223.png) -->
-          <article class="art-card span-4">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_2223.png"
-                alt="Gothic cathedral portal archways and lone pedestrian"
-                class="zoomable gallery-item"
-                data-title="Stone Archways"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Stone Archways</h3>
-              <span>Historic Architecture</span>
-            </div>
-          </article>
-
-          <!-- 8. Nocturnal Sanctuary (IMG_2293.png) -->
-          <article class="art-card span-4">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_2293.png"
-                alt="Warmly illuminated temple architecture framed by autumn foliage"
-                class="zoomable gallery-item"
-                data-title="Autumn Night Walk"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Autumn Night Walk</h3>
-              <span>City Lights &amp; Foliage</span>
-            </div>
-          </article>
-
-          <!-- 9. Black Bear in Meadow (IMG_1138.png) -->
-          <article class="art-card span-6">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1138.png"
-                alt="Black bear foraging in deep green mountain meadow"
-                class="zoomable gallery-item"
-                data-title="Quiet Forager"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Quiet Forager</h3>
-              <span>Black Bear in the Brush</span>
-            </div>
-          </article>
-
-          <!-- 10. Resting Bighorn (IMG_1088.png) -->
-          <article class="art-card span-6">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1088.png"
-                alt="Bighorn sheep resting on rocky alpine slope"
-                class="zoomable gallery-item"
-                data-title="High Country Rest"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>High Country Rest</h3>
-              <span>Bighorn on the Rocks</span>
-            </div>
-          </article>
-
-          <!-- 11. Chairlift Ascent (IMG_1485.png) -->
-          <article class="art-card span-4">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1485.png"
-                alt="Summer chairlift riding up steep mountain slope"
-                class="zoomable gallery-item"
-                data-title="Summer Chairlift"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Summer Chairlift</h3>
-              <span>Riding Up the Ridge</span>
-            </div>
-          </article>
-
-          <!-- 12. Valley Overlook Figure (IMG_0984.png) -->
-          <article class="art-card span-4">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_0984.png"
-                alt="Figure overlooking vast turquoise glacial valley and snow peaks"
-                class="zoomable gallery-item"
-                data-title="Taking It In"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Taking It In</h3>
-              <span>Overlooking the Basin</span>
-            </div>
-          </article>
-
-          <!-- 13. Golden Retriever & Friend (IMG_1721.png) -->
-          <article class="art-card span-4">
-            <div class="art-img-wrap">
-              <img
-                src="IMG_1721.png"
-                alt="Golden hour trail portrait with golden retriever"
-                class="zoomable gallery-item"
-                data-title="Trail Companions"
-              />
-            </div>
-            <div class="art-caption">
-              <h3>Trail Companions</h3>
-              <span>Golden Hour on the Trail</span>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. THE ARTIST SLAB (Displays IMG_1828_1.png, opens BOTH IMG_1828_1.png and IMG_0881.png when clicked) -->
-    <section class="giant-section" id="artist">
-      <div class="giant-slab light-slab reveal-slab">
-        <div class="slab-header">
-          <div>
-            <span class="eyebrow" style="color: #0284c7;">05 / About the Photographer</span>
-            <h2>Preston Breeze</h2>
-          </div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--muted-dark);">
-            SALT LAKE CITY, UTAH
-          </span>
-        </div>
-
-        <div class="artist-grid">
-          <div class="portrait-frame zoomable" onclick="openDualArtistPortraits()">
-            <img
-              src="IMG_1828_1.png"
-              alt="Preston Breeze playing Stratocaster guitar"
-            />
-            <div class="portrait-tag">
-              <span>THE ARTIST</span>
-              <span>CLICK TO VIEW BOTH PORTRAITS [+]</span>
-            </div>
-          </div>
-
-          <div class="artist-bio">
-            <h3>Chasing the Vibe Through Sound, Light, and Landscape.</h3>
-            <p>
-              I am a photographer, musician, and electrical engineering student based in Salt Lake City, Utah. Whether I have a guitar in my hands or a camera on my shoulder, I am always paying attention to tone, atmosphere, and the feeling of a space.
-            </p>
-            <p>
-              In my music photography, I try to capture sound visually by leaning into moody lighting, amplifier glow, and the raw energy of a room. When I head up into the mountains or travel, that same focus turns toward big alpine views, natural light, and candid moments with the people around me.
-            </p>
-
-            <div class="artist-meta-grid">
-              <div>
-                <span>PORTFOLIO</span>
-                <strong>ART 1055 Exhibition</strong>
-              </div>
-              <div>
-                <span>HOME BASE</span>
-                <strong>Salt Lake City, UT</strong>
-              </div>
-              <div>
-                <span>SECTIONS</span>
-                <strong>Music, Scenery &amp; Life</strong>
-              </div>
-              <div>
-                <span>APPROACH</span>
-                <strong>Vibe, Color &amp; Atmosphere</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. MONUMENTAL CUTOUT FINALE -->
-    <section class="monument-cutout">
-      <div class="cutout-word">PRESTON BREEZE</div>
-    </section>
-  </main>
-
-  <footer>
-    <span>&copy; 2026 PRESTON BREEZE. ALL PHOTOGRAPHS ORIGINAL WORK.</span>
-    <span>SALT LAKE CITY, UTAH</span>
-  </footer>
-
-  <!-- Fullscreen Lightbox (Supports Single Gallery View AND Dual Artist Portrait View) -->
-  <div class="lightbox" id="lightbox" onclick="if(event.target === this) closeLightbox()">
     
-    <!-- Standard Single-Photo View -->
-    <div class="lightbox-single-wrap" id="lb-single-wrap">
-      <img id="lightbox-img" src="" alt="Expanded view" />
+    <!-- Photography Film Grain Overlay -->
+    <div class="film-grain"></div>
+
+    <!-- Top Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- Custom Interactive Cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-ring" id="cursor-ring">VIEW</div>
+
+    <!-- Multi-Backdrop Container (Crossfades across 3 backgrounds as you scroll down the page) -->
+    <div class="backdrop-container">
+        <div class="bg-layer bg-layer-1 active" id="bg-layer-1"></div>
+        <div class="bg-layer bg-layer-2" id="bg-layer-2"></div>
+        <div class="bg-layer bg-layer-3" id="bg-layer-3"></div>
+    </div>
+    
+    <div class="backdrop-overlay"></div>
+
+    <!-- Sticky Header + Telemetry Bar -->
+    <header class="site-header">
+        <div class="telemetry-bar">
+            <span><strong>ART 1055</strong> // 40&deg; 45' 39" N, 111&deg; 53' 28" W // SALT LAKE CITY</span>
+            <span class="status-pill">
+                <span class="status-dot"></span>
+                LIVE // <span id="live-time">--:--:--</span>
+            </span>
+        </div>
+        
+        <nav class="nav-bar" id="navbar">
+            <a href="#" class="brand-logo">Preston Breeze</a>
+            <div class="nav-links">
+                <a href="#statement">01 / Philosophy</a>
+                <a href="#music">02 / Music</a>
+                <a href="#scenery">03 / Scenery</a>
+                <a href="#everything-else">04 / Perspectives</a>
+                <a href="#artist">05 / The Artist</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 1. MONUMENTAL HERO -->
+        <section class="hero">
+            <div class="hero-box">
+                <span class="eyebrow">Photography Portfolio &bull; Sound, Light &amp; Place</span>
+                <h1>Preston Breeze</h1>
+                <p class="hero-lead">
+                    Capturing the genuine vibe of a moment, from translating the energy of live music and late night sessions into light, to standing quiet in big mountain spaces.
+                </p>
+                <div class="btn-row">
+                    <a href="#statement" class="btn-primary">The Philosophy &darr;</a>
+                    <a href="#music" class="btn-outline">Explore the Galleries</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. BIG SKY 50/50 STICKY SCROLL-REVEAL (PHILOSOPHY) -->
+        <section class="fifty-fifty-scroll" id="statement">
+            <div class="fifty-fifty-sticky">
+                
+                <!-- Left Pinned Visual Frame (Crossfades across 3 photos as you scroll) -->
+                <div class="sticky-media-box">
+                    <img src="IMG_1929.png" alt="Music session under neon light" class="sticky-slide active zoomable" data-slide="0" onclick="openLightboxBySrc(this.src, 'Neon Jam Session')" />
+                    <img src="20260128_100248.png" alt="High Alpine Basin" class="sticky-slide zoomable" data-slide="1" onclick="openLightboxBySrc(this.src, 'High Alpine Basin')" />
+                    <img src="DSC04028.png" alt="Long Exposure Spark Study" class="sticky-slide zoomable" data-slide="2" onclick="openLightboxBySrc(this.src, 'Tunnel Sparks')" />
+                    
+                    <div class="media-hud">
+                        <span id="hud-plate">THE PURSUIT</span>
+                        <span id="hud-chapter">PART 01 / 03</span>
+                    </div>
+                </div>
+
+                <!-- Right Sliding Giant Text Boxes (Updated Continuous Narrative) -->
+                <div class="sticky-panels-stage">
+                    
+                    <!-- Panel 1 -->
+                    <article class="scroll-panel active" data-index="0">
+                        <span class="panel-counter">01 / The Philosophy / Part I</span>
+                        <h2>The Pursuit.</h2>
+                        <p>
+                            For me, photography has never been about staging the perfect subject or obsessing over clinical perfection. It is a pursuit of the genuine vibe of a moment—translating exactly what it felt like to be there into a single frame.
+                        </p>
+                        <div class="panel-progress-dots">
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </article>
+
+                    <!-- Panel 2 -->
+                    <article class="scroll-panel" data-index="1">
+                        <span class="panel-counter">01 / The Philosophy / Part II</span>
+                        <h2>The Environment.</h2>
+                        <p>
+                            Whether that happens under the neon wash of a late-night jam session, in the cold, thin air of an alpine ridge, or just walking through a quiet city street at dusk, the goal remains the same. I'm looking for the energy that exists right before the shutter clicks.
+                        </p>
+                        <div class="panel-progress-dots">
+                            <span class="dot"></span>
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </article>
+
+                    <!-- Panel 3 -->
+                    <article class="scroll-panel" data-index="2">
+                        <span class="panel-counter">01 / The Philosophy / Part III</span>
+                        <h2>The Capture.</h2>
+                        <p>
+                            It comes down to patience, atmosphere, and an awareness of how light shapes a space. Every photograph in this collection is a piece of how I experience the world—a continuous attempt to see the sound, feel the scale, and catch the fleeting motion of life as it happens.
+                        </p>
+                        <div class="panel-progress-dots">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot active"></span>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 3A. GALLERY SECTION 1: MUSIC & SOUND -->
+        <section class="giant-section" id="music">
+            <div class="giant-slab reveal-slab">
+                <div class="slab-header">
+                    <div>
+                        <span class="eyebrow">02 / Gallery Part I</span>
+                        <h2>Music &amp; Sound</h2>
+                    </div>
+                    <span style="font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--muted-light);">
+                        TRANSLATING TONE, RHYTHM &amp; ROOM ENERGY INTO LIGHT [+]
+                    </span>
+                </div>
+
+                <div class="gallery-bento">
+                    <!-- 1. Neon Jam Session -->
+                    <article class="art-card span-8 wide">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1929.png" alt="Two musicians playing guitar under neon blue and magenta lighting" class="zoomable gallery-item" data-title="Neon Jam Session" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Neon Jam Session</h3>
+                            <span>Studio Color &amp; Rhythm</span>
+                        </div>
+                    </article>
+
+                    <!-- 2. Stratocaster & Tube Amp -->
+                    <article class="art-card span-4 wide">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1897.png" alt="White Fender Stratocaster and tube amplifier in warm light" class="zoomable gallery-item" data-title="Warm Tube Tone" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Warm Tube Tone</h3>
+                            <span>Stratocaster &amp; Amp</span>
+                        </div>
+                    </article>
+
+                    <!-- 3. Crimson Fretwork Close-Up -->
+                    <article class="art-card span-6">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1954.png" alt="Close-up of hands playing electric guitar in red lighting" class="zoomable gallery-item" data-title="Crimson Fretwork" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Crimson Fretwork</h3>
+                            <span>Low-Key Stage Light</span>
+                        </div>
+                    </article>
+
+                    <!-- 4. Monochrome Acoustic Study -->
+                    <article class="art-card span-6">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1978.png" alt="Black and white portrait playing acoustic guitar outdoors" class="zoomable gallery-item" data-title="Unplugged in Black &amp; White" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Unplugged in Black &amp; White</h3>
+                            <span>Acoustic Session</span>
+                        </div>
+                    </article>
+
+                    <!-- 5. Studio Flow -->
+                    <article class="art-card span-4">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1860_2.png" alt="Playing white Stratocaster in soft directional studio lighting" class="zoomable gallery-item" data-title="Lost in the Mix" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Lost in the Mix</h3>
+                            <span>Solo Session</span>
+                        </div>
+                    </article>
+
+                    <!-- 6. Vocal / Room Vibe -->
+                    <article class="art-card span-4">
+                        <div class="art-img-wrap">
+                            <img src="IMG_2087.png" alt="Candid warm-lit room portrait" class="zoomable gallery-item" data-title="Mid-Song Energy" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Mid-Song Energy</h3>
+                            <span>Warm Room Light</span>
+                        </div>
+                    </article>
+
+                    <!-- 7. Late Night Practice -->
+                    <article class="art-card span-4">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1828_1.png" alt="Playing electric guitar in Moody bedroom studio lighting" class="zoomable gallery-item" data-title="Late Night Groove" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Late Night Groove</h3>
+                            <span>Home Studio Vibe</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3B. GALLERY SECTION 2: SCENERY & ALPINE -->
+        <section class="giant-section" id="scenery">
+            <div class="giant-slab reveal-slab">
+                <div class="slab-header">
+                    <div>
+                        <span class="eyebrow">03 / Gallery Part II</span>
+                        <h2>Scenery &amp; Alpine</h2>
+                    </div>
+                    <span style="font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--muted-light);">
+                        MOUNTAIN BASINS, GLACIAL WATER &amp; CANYON LIGHT [+]
+                    </span>
+                </div>
+
+                <div class="gallery-bento">
+                    <!-- 1. Autumn Canyon Layers -->
+                    <article class="art-card span-8 wide">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1715-HDR.png" alt="Vibrant autumn leaves and layered canyon mountains" class="zoomable gallery-item" data-title="Wasatch Autumn Layers" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Wasatch Autumn Layers</h3>
+                            <span>Canyon Dusk</span>
+                        </div>
+                    </article>
+
+                    <!-- 2. Great Western Overlook -->
+                    <article class="art-card span-4 wide">
+                        <div class="art-img-wrap">
+                            <img src="GreatWesternOverlook.png" alt="Snow-covered mountain ridgelines from Great Western Overlook" class="zoomable gallery-item" data-title="Great Western Overlook" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Great Western Overlook</h3>
+                            <span>Winter Ridgeline</span>
+                        </div>
+                    </article>
+
+                    <!-- 3. Turquoise Glacial Lake -->
+                    <article class="art-card span-6">
+                        <div class="art-img-wrap">
+                            <img src="IMG_0870.png" alt="Turquoise glacial lake and sunlit mountain peaks" class="zoomable gallery-item" data-title="Glacial Turquoise" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Glacial Turquoise</h3>
+                            <span>High Mountain Lake</span>
+                        </div>
+                    </article>
+
+                    <!-- 4. Snowy Ski Bowl Panorama -->
+                    <article class="art-card span-6">
+                        <div class="art-img-wrap">
+                            <img src="20260128_100248.png" alt="Wide snowy mountain basin with lone figure" class="zoomable gallery-item" data-title="Open Bowl Solitude" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Open Bowl Solitude</h3>
+                            <span>Alpine Winter</span>
+                        </div>
+                    </article>
+
+                    <!-- 5. Vertical Glacial Peak -->
+                    <article class="art-card span-4 tall">
+                        <div class="art-img-wrap">
+                            <img src="IMG_0907.png" alt="Vertical composition of snow-capped peak over emerald water" class="zoomable gallery-item" data-title="Emerald Inlet" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Emerald Inlet</h3>
+                            <span>Glacial Valley</span>
+                        </div>
+                    </article>
+
+                    <!-- 6. Sunset Mountain Ridges HDR -->
+                    <article class="art-card span-4 tall">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1700-HDR.png" alt="Layered mountain ridges under golden sunset clouds" class="zoomable gallery-item" data-title="Amber Ridgelines" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Amber Ridgelines</h3>
+                            <span>Sunset Glow</span>
+                        </div>
+                    </article>
+
+                    <!-- 7. Vertical Glacial Basin -->
+                    <article class="art-card span-4 tall">
+                        <div class="art-img-wrap">
+                            <img src="IMG_0965.png" alt="High altitude vertical perspective of glacial basin" class="zoomable gallery-item" data-title="Deep Valley View" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Deep Valley View</h3>
+                            <span>Above the Timberline</span>
+                        </div>
+                    </article>
+
+                    <!-- 8. Canopy Sunburst -->
+                    <article class="art-card span-4">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1723.png" alt="Sunburst breaking through green forest canopy over mountain valley" class="zoomable gallery-item" data-title="Canopy Sunburst" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Canopy Sunburst</h3>
+                            <span>First Light</span>
+                        </div>
+                    </article>
+
+                    <!-- 9. Crimson & Gold Leaves -->
+                    <article class="art-card span-4">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1729.png" alt="Scarlet maple leaves against golden canyon slopes" class="zoomable gallery-item" data-title="Fall Color Contrast" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Fall Color Contrast</h3>
+                            <span>Autumn Canyon</span>
+                        </div>
+                    </article>
+
+                    <!-- 10. Golden Canyon Slopes -->
+                    <article class="art-card span-4">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1749.png" alt="Sweeping mountain ridges dressed in autumn gold" class="zoomable gallery-item" data-title="Golden Divide" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Golden Divide</h3>
+                            <span>Mountain Ridges</span>
+                        </div>
+                    </article>
+
+                    <!-- 11. Lead Alpine Horizon -->
+                    <article class="art-card span-12">
+                        <div class="art-img-wrap" style="max-height: 460px;">
+                            <img src="IMG_1000.png" alt="Pine forest and bright blue alpine peaks" class="zoomable gallery-item" data-title="Bluebird Horizon" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Bluebird Horizon</h3>
+                            <span>Signature Mountain View</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3C. GALLERY SECTION 3: EVERYTHING ELSE -->
+        <section class="giant-section" id="everything-else">
+            <div class="giant-slab reveal-slab">
+                <div class="slab-header">
+                    <div>
+                        <span class="eyebrow">04 / Gallery Part III</span>
+                        <h2>Light, Wildlife &amp; Places</h2>
+                    </div>
+                    <span style="font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--muted-light);">
+                        LONG EXPOSURES, ARCHITECTURE, WILDLIFE &amp; TRAVEL [+]
+                    </span>
+                </div>
+
+                <div class="gallery-bento">
+                    <!-- 1. Long Exposure Sparks -->
+                    <article class="art-card span-8 wide">
+                        <div class="art-img-wrap">
+                            <img src="DSC04028.png" alt="Long exposure sparks in tunnel with umbrella silhouette" class="zoomable gallery-item" data-title="Fire in the Tunnel" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Fire in the Tunnel</h3>
+                            <span>Long Exposure Sparks</span>
+                        </div>
+                    </article>
+
+                    <!-- 2. Golden Hour Spire -->
+                    <article class="art-card span-4 wide">
+                        <div class="art-img-wrap">
+                            <img src="IMG_2267.png" alt="Spire silhouette framed by autumn leaves at sunset" class="zoomable gallery-item" data-title="Golden Hour Spires" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Golden Hour Spires</h3>
+                            <span>Framed Through Leaves</span>
+                        </div>
+                    </article>
+
+                    <!-- 3. Cathedral Altar & Chandelier -->
+                    <article class="art-card span-4 tall">
+                        <div class="art-img-wrap">
+                            <img src="20261110_170508.png" alt="Ornate painted cathedral mural and warm chandelier" class="zoomable gallery-item" data-title="Cathedral Glow" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Cathedral Glow</h3>
+                            <span>Interior Light</span>
+                        </div>
+                    </article>
+
+                    <!-- 4. Dusk Spires -->
+                    <article class="art-card span-4 tall">
+                        <div class="art-img-wrap">
+                            <img src="IMG_2327.png" alt="Salt Lake Temple spires silhouetted against an orange sky" class="zoomable gallery-item" data-title="Sunset Silhouette" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Sunset Silhouette</h3>
+                            <span>Salt Lake City</span>
+                        </div>
+                    </article>
+
+                    <!-- 5. Vertical Bighorn Sheep -->
+                    <article class="art-card span-4 tall">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1099.png" alt="Vertical portrait of a bighorn sheep on rocky terrain" class="zoomable gallery-item" data-title="Mountain Lookout" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Mountain Lookout</h3>
+                            <span>Alpine Wildlife</span>
+                        </div>
+                    </article>
+
+                    <!-- 6. Schloss Lichtenstein -->
+                    <article class="art-card span-4">
+                        <div class="art-img-wrap">
+                            <img src="schlosslichtenstein.png" alt="Schloss Lichtenstein castle perched on a cliff in autumn" class="zoomable gallery-item" data-title="Schloss Lichtenstein" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Schloss Lichtenstein</h3>
+                            <span>Cliffside Castle in Germany</span>
+                        </div>
+                    </article>
+
+                    <!-- 7. Gothic Portal -->
+                    <article class="art-card span-4">
+                        <div class="art-img-wrap">
+                            <img src="IMG_2223.png" alt="Gothic cathedral portal archways and lone pedestrian" class="zoomable gallery-item" data-title="Stone Archways" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Stone Archways</h3>
+                            <span>Historic Architecture</span>
+                        </div>
+                    </article>
+
+                    <!-- 8. Nocturnal Sanctuary -->
+                    <article class="art-card span-4">
+                        <div class="art-img-wrap">
+                            <img src="IMG_2293.png" alt="Warmly illuminated temple architecture framed by autumn foliage" class="zoomable gallery-item" data-title="Autumn Night Walk" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Autumn Night Walk</h3>
+                            <span>City Lights &amp; Foliage</span>
+                        </div>
+                    </article>
+
+                    <!-- 9. Black Bear in Meadow -->
+                    <article class="art-card span-6">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1138.png" alt="Black bear foraging in deep green mountain meadow" class="zoomable gallery-item" data-title="Quiet Forager" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Quiet Forager</h3>
+                            <span>Black Bear in the Brush</span>
+                        </div>
+                    </article>
+
+                    <!-- 10. Resting Bighorn -->
+                    <article class="art-card span-6">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1088.png" alt="Bighorn sheep resting on rocky alpine slope" class="zoomable gallery-item" data-title="High Country Rest" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>High Country Rest</h3>
+                            <span>Bighorn on the Rocks</span>
+                        </div>
+                    </article>
+
+                    <!-- 11. Chairlift Ascent -->
+                    <article class="art-card span-4">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1485.png" alt="Summer chairlift riding up steep mountain slope" class="zoomable gallery-item" data-title="Summer Chairlift" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Summer Chairlift</h3>
+                            <span>Riding Up the Ridge</span>
+                        </div>
+                    </article>
+
+                    <!-- 12. Valley Overlook Figure -->
+                    <article class="art-card span-4">
+                        <div class="art-img-wrap">
+                            <img src="IMG_0984.png" alt="Figure overlooking vast turquoise glacial valley and snow peaks" class="zoomable gallery-item" data-title="Taking It In" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Taking It In</h3>
+                            <span>Overlooking the Basin</span>
+                        </div>
+                    </article>
+
+                    <!-- 13. Golden Retriever & Friend -->
+                    <article class="art-card span-4">
+                        <div class="art-img-wrap">
+                            <img src="IMG_1721.png" alt="Golden hour trail portrait with golden retriever" class="zoomable gallery-item" data-title="Trail Companions" />
+                        </div>
+                        <div class="art-caption">
+                            <h3>Trail Companions</h3>
+                            <span>Golden Hour on the Trail</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. THE ARTIST SLAB -->
+        <section class="giant-section" id="artist">
+            <div class="giant-slab light-slab reveal-slab">
+                <div class="slab-header">
+                    <div>
+                        <span class="eyebrow" style="color: #0284c7;">05 / About the Photographer</span>
+                        <h2>Preston Breeze</h2>
+                    </div>
+                    <span style="font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--muted-dark);">
+                        SALT LAKE CITY, UTAH
+                    </span>
+                </div>
+
+                <div class="artist-grid">
+                    <div class="portrait-frame zoomable" onclick="openDualArtistPortraits()">
+                        <img src="IMG_1828_1.png" alt="Preston Breeze playing Stratocaster guitar" />
+                        <div class="portrait-tag">
+                            <span>THE ARTIST</span>
+                            <span>CLICK TO VIEW BOTH PORTRAITS [+]</span>
+                        </div>
+                    </div>
+
+                    <div class="artist-bio">
+                        <h3>Chasing the Vibe Through Sound, Light, and Landscape.</h3>
+                        <p>
+                            I am a photographer, musician, and electrical engineering student based in Salt Lake City, Utah. Whether I have a guitar in my hands or a camera on my shoulder, I am always paying attention to tone, atmosphere, and the feeling of a space.
+                        </p>
+                        <p>
+                            In my music photography, I try to capture sound visually by leaning into moody lighting, amplifier glow, and the raw energy of a room. When I head up into the mountains or travel, that same focus turns toward big alpine views, natural light, and candid moments with the people around me.
+                        </p>
+
+                        <div class="artist-meta-grid">
+                            <div>
+                                <span>PORTFOLIO</span>
+                                <strong>ART 1055 Exhibition</strong>
+                            </div>
+                            <div>
+                                <span>HOME BASE</span>
+                                <strong>Salt Lake City, UT</strong>
+                            </div>
+                            <div>
+                                <span>SECTIONS</span>
+                                <strong>Music, Scenery &amp; Life</strong>
+                            </div>
+                            <div>
+                                <span>APPROACH</span>
+                                <strong>Vibe, Color &amp; Atmosphere</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. MONUMENTAL CUTOUT FINALE -->
+        <section class="monument-cutout">
+            <div class="cutout-word">PRESTON BREEZE</div>
+        </section>
+    </main>
+
+    <footer>
+        <span>&copy; 2026 PRESTON BREEZE. ALL PHOTOGRAPHS ORIGINAL WORK.</span>
+        <span>SALT LAKE CITY, UTAH</span>
+    </footer>
+
+    <!-- Fullscreen Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="if(event.target === this) closeLightbox()">
+        
+        <!-- Standard Single-Photo View -->
+        <div class="lightbox-single-wrap" id="lb-single-wrap">
+            <img id="lightbox-img" src="" alt="Expanded view" />
+        </div>
+
+        <!-- Dual Artist Portrait View -->
+        <div class="lightbox-dual-wrap" id="lb-dual-wrap">
+            <div class="lightbox-dual-card">
+                <img id="lb-dual-img-1" src="IMG_1828_1.png" alt="Studio Guitar Portrait" />
+                <span>In the Studio</span>
+            </div>
+            <div class="lightbox-dual-card">
+                <img id="lb-dual-img-2" src="IMG_0881.png" alt="Alpine Lake Portrait" />
+                <span>In the Mountains</span>
+            </div>
+        </div>
+
+        <div class="lightbox-bar">
+            <button class="lb-btn" id="lb-prev-btn" onclick="stepLightbox(-1)">&larr; Prev</button>
+            <span id="lightbox-caption">PHOTO VIEW</span>
+            <button class="lb-btn" id="lb-next-btn" onclick="stepLightbox(1)">Next &rarr;</button>
+            <button class="lb-btn" onclick="closeLightbox()">Close [ESC]</button>
+        </div>
     </div>
 
-    <!-- Dual Artist Portrait View (Triggered when clicking the artist portrait) -->
-    <div class="lightbox-dual-wrap" id="lb-dual-wrap">
-      <div class="lightbox-dual-card">
-        <img id="lb-dual-img-1" src="IMG_1828_1.png" alt="Studio Guitar Portrait" />
-        <span>In the Studio</span>
-      </div>
-      <div class="lightbox-dual-card">
-        <img id="lb-dual-img-2" src="IMG_0881.png" alt="Alpine Lake Portrait" />
-        <span>In the Mountains</span>
-      </div>
-    </div>
+    <script>
+        // Automatic Fallback Resolver: Checks root folder first, then /images/, then .jpg
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                const rawSrc = this.getAttribute('src');
+                
+                if (!this.dataset.triedSubfolder && !rawSrc.startsWith('images/')) {
+                    this.dataset.triedSubfolder = 'true';
+                    this.src = 'images/' + rawSrc;
+                } else if (!this.dataset.triedJpg && rawSrc.endsWith('.png')) {
+                    this.dataset.triedJpg = 'true';
+                    this.src = rawSrc.replace('images/', '').replace(/\.png$/i, '.jpg');
+                }
+            });
+        });
 
-    <div class="lightbox-bar">
-      <button class="lb-btn" id="lb-prev-btn" onclick="stepLightbox(-1)">&larr; Prev</button>
-      <span id="lightbox-caption">PHOTO VIEW</span>
-      <button class="lb-btn" id="lb-next-btn" onclick="stepLightbox(1)">Next &rarr;</button>
-      <button class="lb-btn" onclick="closeLightbox()">Close [ESC]</button>
-    </div>
-  </div>
+        const bgLayer1 = document.getElementById('bg-layer-1');
+        const bgLayer2 = document.getElementById('bg-layer-2');
+        const bgLayer3 = document.getElementById('bg-layer-3');
+        const navbar = document.getElementById('navbar');
+        const scrollProgress = document.getElementById('scroll-progress');
+        const fiftySection = document.getElementById('statement');
+        const panels = document.querySelectorAll('.scroll-panel');
+        const slides = document.querySelectorAll('.sticky-slide');
+        const hudChapter = document.getElementById('hud-chapter');
+        const hudPlate = document.getElementById('hud-plate');
+        
+        // Updated HUD Labels for continuous narrative
+        const plateLabels = ['THE PURSUIT', 'THE ENVIRONMENT', 'THE CAPTURE'];
 
-  <script>
-    // Automatic Fallback Resolver: Checks root folder first, then /images/, then .jpg
-    document.querySelectorAll('img').forEach(img => {
-      img.addEventListener('error', function() {
-        const rawSrc = this.getAttribute('src');
-        if (!this.dataset.triedSubfolder && !rawSrc.startsWith('images/')) {
-          this.dataset.triedSubfolder = 'true';
-          this.src = 'images/' + rawSrc;
-        } else if (!this.dataset.triedJpg && rawSrc.endsWith('.png')) {
-          this.dataset.triedJpg = 'true';
-          this.src = rawSrc.replace('images/', '').replace(/\.png$/i, '.jpg');
+        // Live Clock logic for the telemetry bar
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', {
+                timeZone: 'America/Denver',
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('live-time').textContent = timeStr + ' MST';
+            requestAnimationFrame(updateClock);
         }
-      });
-    });
+        updateClock();
 
-    const bgLayer1 = document.getElementById('bg-layer-1');
-    const bgLayer2 = document.getElementById('bg-layer-2');
-    const bgLayer3 = document.getElementById('bg-layer-3');
-    const navbar = document.getElementById('navbar');
-    const scrollProgress = document.getElementById('scroll-progress');
-    const fiftySection = document.getElementById('statement');
-    const panels = document.querySelectorAll('.scroll-panel');
-    const slides = document.querySelectorAll('.sticky-slide');
-    const hudChapter = document.getElementById('hud-chapter');
-    const hudPlate = document.getElementById('hud-plate');
+        // 1. Master Scroll Engine
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docHeight > 0 ? (scrollY / docHeight) : 0;
+            
+            scrollProgress.style.width = `${pct * 100}%`;
 
-    const plateLabels = [
-      'VISUALIZING SOUND',
-      'MOUNTAIN SCALE',
-      'LIGHT IN MOTION'
-    ];
-
-    // 1. Master Scroll Engine (Continuous Multi-Backdrop Crossfader + Gentle Parallax + 50/50 Sticky Switcher)
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = docHeight > 0 ? (scrollY / docHeight) : 0;
-      scrollProgress.style.width = `${pct * 100}%`;
-
-      if (scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-
-      // Bounded gentle parallax movement so background never scrolls off-screen
-      const shiftY = (pct - 0.5) * -55;
-      const scale = 1.08 + (pct * 0.04);
-      const transformStr = `translate3d(0, ${shiftY}px, 0) scale(${scale})`;
-      bgLayer1.style.transform = transformStr;
-      bgLayer2.style.transform = transformStr;
-      bgLayer3.style.transform = transformStr;
-
-      // Crossfade between the 3 background images as you scroll down the page
-      if (pct < 0.36) {
-        bgLayer1.classList.add('active');
-        bgLayer2.classList.remove('active');
-        bgLayer3.classList.remove('active');
-      } else if (pct < 0.70) {
-        bgLayer1.classList.remove('active');
-        bgLayer2.classList.add('active');
-        bgLayer3.classList.remove('active');
-      } else {
-        bgLayer1.classList.remove('active');
-        bgLayer2.classList.remove('active');
-        bgLayer3.classList.add('active');
-      }
-
-      // 50/50 Split-Screen Scroll Reveal Logic
-      if (window.innerWidth > 980 && fiftySection) {
-        const rect = fiftySection.getBoundingClientRect();
-        const totalScrollable = rect.height - window.innerHeight;
-        const scrolledInside = -rect.top;
-
-        if (scrolledInside >= 0 && scrolledInside <= totalScrollable) {
-          const progress = scrolledInside / totalScrollable;
-          const activeIdx = Math.min(
-            panels.length - 1,
-            Math.floor(progress * panels.length)
-          );
-
-          panels.forEach((panel, idx) => {
-            panel.classList.remove('active', 'passed');
-            if (idx === activeIdx) {
-              panel.classList.add('active');
-            } else if (idx < activeIdx) {
-              panel.classList.add('passed');
+            if (scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
-          });
 
-          slides.forEach((slide, idx) => {
-            slide.classList.toggle('active', idx === activeIdx);
-          });
+            // Amplified Parallax background movement
+            const shiftY = (pct - 0.5) * -160; 
+            const scale = 1.15 + (pct * 0.06); 
+            const transformStr = `translate3d(0, ${shiftY}px, 0) scale(${scale})`;
+            
+            bgLayer1.style.transform = transformStr;
+            bgLayer2.style.transform = transformStr;
+            bgLayer3.style.transform = transformStr;
 
-          hudChapter.textContent = `PART 0${activeIdx + 1} / 03`;
-          hudPlate.textContent = plateLabels[activeIdx];
+            // Crossfade between the 3 background images
+            if (pct < 0.36) {
+                bgLayer1.classList.add('active');
+                bgLayer2.classList.remove('active');
+                bgLayer3.classList.remove('active');
+            } else if (pct < 0.70) {
+                bgLayer1.classList.remove('active');
+                bgLayer2.classList.add('active');
+                bgLayer3.classList.remove('active');
+            } else {
+                bgLayer1.classList.remove('active');
+                bgLayer2.classList.remove('active');
+                bgLayer3.classList.add('active');
+            }
+
+            // 50/50 Split-Screen Scroll Reveal Logic
+            if (window.innerWidth > 980 && fiftySection) {
+                const rect = fiftySection.getBoundingClientRect();
+                const totalScrollable = rect.height - window.innerHeight;
+                const scrolledInside = -rect.top;
+
+                if (scrolledInside >= 0 && scrolledInside <= totalScrollable) {
+                    const progress = scrolledInside / totalScrollable;
+                    const activeIdx = Math.min(
+                        panels.length - 1,
+                        Math.floor(progress * panels.length)
+                    );
+
+                    panels.forEach((panel, idx) => {
+                        panel.classList.remove('active', 'passed');
+                        if (idx === activeIdx) {
+                            panel.classList.add('active');
+                        } else if (idx < activeIdx) {
+                            panel.classList.add('passed');
+                        }
+                    });
+
+                    slides.forEach((slide, idx) => {
+                        slide.classList.toggle('active', idx === activeIdx);
+                    });
+
+                    hudChapter.textContent = `PART 0${activeIdx + 1} / 03`;
+                    hudPlate.textContent = plateLabels[activeIdx];
+                }
+            }
+        }, { passive: true });
+
+        // 2. IntersectionObserver for Giant Slabs
+        const slabObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.08 });
+
+        document.querySelectorAll('.reveal-slab').forEach(el => slabObserver.observe(el));
+
+        // 3. Custom Reticle Cursor
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorRing = document.getElementById('cursor-ring');
+        
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+        let ringX = mouseX, ringY = mouseY;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
+
+        function animateCursor() {
+            ringX += (mouseX - ringX) * 0.18;
+            ringY += (mouseY - ringY) * 0.18;
+            cursorRing.style.left = `${ringX}px`;
+            cursorRing.style.top = `${ringY}px`;
+            requestAnimationFrame(animateCursor);
         }
-      }
-    }, { passive: true });
+        animateCursor();
 
-    // 2. IntersectionObserver for Giant Slabs
-    const slabObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+        document.querySelectorAll('.zoomable, a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => cursorRing.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursorRing.classList.remove('active'));
+        });
+
+        // 4. Fullscreen Lightbox with Single & Dual Portrait Mode
+        const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+        let currentLbIndex = 0;
+
+        galleryItems.forEach((img, index) => {
+            img.addEventListener('click', () => {
+                currentLbIndex = index;
+                showLightboxItem(currentLbIndex);
+            });
+        });
+
+        function setSingleLightboxMode() {
+            document.getElementById('lb-single-wrap').style.display = 'flex';
+            document.getElementById('lb-dual-wrap').style.display = 'none';
+            document.getElementById('lb-prev-btn').style.display = 'inline-block';
+            document.getElementById('lb-next-btn').style.display = 'inline-block';
         }
-      });
-    }, { threshold: 0.08 });
 
-    document.querySelectorAll('.reveal-slab').forEach(el => slabObserver.observe(el));
+        function showLightboxItem(index) {
+            const item = galleryItems[index];
+            if (!item) return;
+            
+            setSingleLightboxMode();
+            document.getElementById('lightbox-img').src = item.src;
+            document.getElementById('lightbox-caption').textContent = item.dataset.title || 'PORTFOLIO VIEW';
+            document.getElementById('lightbox').classList.add('active');
+        }
 
-    // 3. Custom Reticle Cursor
-    const cursorDot = document.getElementById('cursor-dot');
-    const cursorRing = document.getElementById('cursor-ring');
-    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-    let ringX = mouseX, ringY = mouseY;
+        function openLightboxBySrc(src, title) {
+            setSingleLightboxMode();
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-caption').textContent = title || 'PORTFOLIO VIEW';
+            document.getElementById('lightbox').classList.add('active');
+        }
 
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursorDot.style.left = `${mouseX}px`;
-      cursorDot.style.top = `${mouseY}px`;
-    });
+        function openDualArtistPortraits() {
+            document.getElementById('lb-single-wrap').style.display = 'none';
+            document.getElementById('lb-dual-wrap').style.display = 'flex';
+            document.getElementById('lb-prev-btn').style.display = 'none';
+            document.getElementById('lb-next-btn').style.display = 'none';
+            
+            document.getElementById('lightbox-caption').textContent = 'PRESTON BREEZE // IN THE STUDIO & IN THE MOUNTAINS';
+            document.getElementById('lightbox').classList.add('active');
+        }
 
-    function animateCursor() {
-      ringX += (mouseX - ringX) * 0.18;
-      ringY += (mouseY - ringY) * 0.18;
-      cursorRing.style.left = `${ringX}px`;
-      cursorRing.style.top = `${ringY}px`;
-      requestAnimationFrame(animateCursor);
-    }
-    animateCursor();
+        function stepLightbox(dir) {
+            currentLbIndex = (currentLbIndex + dir + galleryItems.length) % galleryItems.length;
+            showLightboxItem(currentLbIndex);
+        }
 
-    document.querySelectorAll('.zoomable, a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => cursorRing.classList.add('active'));
-      el.addEventListener('mouseleave', () => cursorRing.classList.remove('active'));
-    });
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
 
-    // 4. Fullscreen Lightbox with Single & Dual Portrait Mode
-    const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
-    let currentLbIndex = 0;
-
-    galleryItems.forEach((img, index) => {
-      img.addEventListener('click', () => {
-        currentLbIndex = index;
-        showLightboxItem(currentLbIndex);
-      });
-    });
-
-    function setSingleLightboxMode() {
-      document.getElementById('lb-single-wrap').style.display = 'flex';
-      document.getElementById('lb-dual-wrap').style.display = 'none';
-      document.getElementById('lb-prev-btn').style.display = 'inline-block';
-      document.getElementById('lb-next-btn').style.display = 'inline-block';
-    }
-
-    function showLightboxItem(index) {
-      const item = galleryItems[index];
-      if (!item) return;
-      setSingleLightboxMode();
-      document.getElementById('lightbox-img').src = item.src;
-      document.getElementById('lightbox-caption').textContent = item.dataset.title || 'PORTFOLIO VIEW';
-      document.getElementById('lightbox').classList.add('active');
-    }
-
-    function openLightboxBySrc(src, title) {
-      setSingleLightboxMode();
-      document.getElementById('lightbox-img').src = src;
-      document.getElementById('lightbox-caption').textContent = title || 'PORTFOLIO VIEW';
-      document.getElementById('lightbox').classList.add('active');
-    }
-
-    function openDualArtistPortraits() {
-      document.getElementById('lb-single-wrap').style.display = 'none';
-      document.getElementById('lb-dual-wrap').style.display = 'flex';
-      document.getElementById('lb-prev-btn').style.display = 'none';
-      document.getElementById('lb-next-btn').style.display = 'none';
-      document.getElementById('lightbox-caption').textContent = 'PRESTON BREEZE // IN THE STUDIO & IN THE MOUNTAINS';
-      document.getElementById('lightbox').classList.add('active');
-    }
-
-    function stepLightbox(dir) {
-      currentLbIndex = (currentLbIndex + dir + galleryItems.length) % galleryItems.length;
-      showLightboxItem(currentLbIndex);
-    }
-
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('active');
-    }
-
-    document.addEventListener('keydown', (e) => {
-      const lbActive = document.getElementById('lightbox').classList.contains('active');
-      if (!lbActive) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (document.getElementById('lb-single-wrap').style.display !== 'none') {
-        if (e.key === 'ArrowRight') stepLightbox(1);
-        if (e.key === 'ArrowLeft') stepLightbox(-1);
-      }
-    });
-  </script>
+        document.addEventListener('keydown', (e) => {
+            const lbActive = document.getElementById('lightbox').classList.contains('active');
+            if (!lbActive) return;
+            
+            if (e.key === 'Escape') closeLightbox();
+            if (document.getElementById('lb-single-wrap').style.display !== 'none') {
+                if (e.key === 'ArrowRight') stepLightbox(1);
+                if (e.key === 'ArrowLeft') stepLightbox(-1);
+            }
+        });
+    </script>
 </body>
 </html>
