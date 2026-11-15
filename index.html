@@ -112,8 +112,8 @@
       left: -5%;
       width: 110%;
       height: 120%;
-      /* Uses IMG_1000.png first, with automatic fallback to your snowy basin shot */
-      background-image: url('images/IMG_1000.png'), url('IMG_1000.png'), url('images/20260128_100248.png');
+      /* Root folder paths first, with images/ fallback just in case */
+      background-image: url('IMG_1000.png'), url('20260128_100248.png'), url('images/IMG_1000.png');
       background-size: cover;
       background-position: center center;
       will-change: transform;
@@ -831,7 +831,7 @@
       <span>EXHIBITION: <strong>ART 1055 // UNIVERSITY OF UTAH</strong></span>
       <span class="status-pill">
         <span class="status-dot"></span>
-        PORTFOLIO ARCHIVE // 08 PLATES LOADED
+        PORTFOLIO ARCHIVE // 24 PLATES LOADED
       </span>
     </div>
     <nav class="nav-bar" id="navbar">
@@ -867,21 +867,21 @@
         <!-- Left Pinned Visual Frame (Crossfades across 3 photos as you scroll) -->
         <div class="sticky-media-box">
           <img
-            src="images/20260128_100248.png"
+            src="20260128_100248.png"
             alt="High Alpine Basin"
             class="sticky-slide active zoomable"
             data-slide="0"
             onclick="openLightboxBySrc(this.src, 'High Alpine Solitude')"
           />
           <img
-            src="images/DSC04028.png"
+            src="DSC04028.png"
             alt="Long Exposure Spark Study"
             class="sticky-slide zoomable"
             data-slide="1"
             onclick="openLightboxBySrc(this.src, 'Kinetic Fire // Tunnel Study')"
           />
           <img
-            src="images/IMG_2267.png"
+            src="IMG_2267.png"
             alt="Golden Hour Spire Silhouette"
             class="sticky-slide zoomable"
             data-slide="2"
@@ -966,11 +966,11 @@
 
         <div class="gallery-bento">
 
-          <!-- 1. Long Exposure Sparks (DSC04028.png) -->
+          <!-- ROW 1: 8 + 4 -->
           <article class="art-card span-8 wide">
             <div class="art-img-wrap">
               <img
-                src="images/DSC04028.png"
+                src="DSC04028.png"
                 alt="Long exposure sparks in tunnel with umbrella silhouette"
                 class="zoomable gallery-item"
                 data-title="I. Kinetic Shelter (Long Exposure Study)"
@@ -982,11 +982,10 @@
             </div>
           </article>
 
-          <!-- 2. Golden Hour Spire (IMG_2267.png) -->
           <article class="art-card span-4 wide">
             <div class="art-img-wrap">
               <img
-                src="images/IMG_2267.png"
+                src="IMG_2267.png"
                 alt="Spire silhouette framed by autumn leaves at sunset"
                 class="zoomable gallery-item"
                 data-title="II. Golden Hour Spire"
@@ -998,11 +997,11 @@
             </div>
           </article>
 
-          <!-- 3. Turquoise Glacial Lake Horizontal (IMG_0870.png) -->
+          <!-- ROW 2: 6 + 6 -->
           <article class="art-card span-6">
             <div class="art-img-wrap">
               <img
-                src="images/IMG_0870.png"
+                src="IMG_0870.png"
                 alt="Turquoise glacial lake and sunlit mountain peaks"
                 class="zoomable gallery-item"
                 data-title="III. Glacial Turquoise I"
@@ -1014,27 +1013,26 @@
             </div>
           </article>
 
-          <!-- 4. Snowy Ski Bowl Panorama (20260128_100248.png) -->
           <article class="art-card span-6">
             <div class="art-img-wrap">
               <img
-                src="images/20260128_100248.png"
-                alt="Wide snowy mountain basin with lone figure"
+                src="GreatWesternOverlook.png"
+                alt="Snow-covered mountain ridgelines from Great Western Overlook"
                 class="zoomable gallery-item"
-                data-title="IV. High Basin Solitude"
+                data-title="IV. Great Western Overlook"
               />
             </div>
             <div class="art-caption">
-              <h3>IV. High Basin Solitude</h3>
-              <span>20260128 // Winter Alpine</span>
+              <h3>IV. Great Western Overlook</h3>
+              <span>OVERLOOK // Winter Summit</span>
             </div>
           </article>
 
-          <!-- 5. Vertical Glacial Peak (IMG_0907.png) -->
+          <!-- ROW 3: 4 + 4 + 4 (Tall Vertical Trio) -->
           <article class="art-card span-4 tall">
             <div class="art-img-wrap">
               <img
-                src="images/IMG_0907.png"
+                src="IMG_0907.png"
                 alt="Vertical composition of snow-capped peak over emerald water"
                 class="zoomable gallery-item"
                 data-title="V. Emerald Inlet &amp; Glaciers"
@@ -1046,11 +1044,10 @@
             </div>
           </article>
 
-          <!-- 6. Sunset Mountain Ridges HDR (IMG_1700-HDR.png) -->
           <article class="art-card span-4 tall">
             <div class="art-img-wrap">
               <img
-                src="images/IMG_1700-HDR.png"
+                src="IMG_1700-HDR.png"
                 alt="Layered mountain ridges under golden sunset clouds"
                 class="zoomable gallery-item"
                 data-title="VI. Amber Ridgelines (HDR)"
@@ -1062,11 +1059,10 @@
             </div>
           </article>
 
-          <!-- 7. Cathedral Altar & Chandelier (20261110_170508.png) -->
           <article class="art-card span-4 tall">
             <div class="art-img-wrap">
               <img
-                src="images/20261110_170508.png"
+                src="20261110_170508.png"
                 alt="Ornate painted cathedral mural and warm chandelier"
                 class="zoomable gallery-item"
                 data-title="VII. Sacred Chiaroscuro"
@@ -1078,19 +1074,264 @@
             </div>
           </article>
 
-          <!-- 8. Primary Backdrop Study (IMG_1000.png) -->
-          <article class="art-card span-12">
-            <div class="art-img-wrap" style="max-height: 460px;">
+          <!-- ROW 4: 8 + 4 -->
+          <article class="art-card span-8 wide">
+            <div class="art-img-wrap">
               <img
-                src="images/IMG_1000.png"
-                onerror="this.closest('.art-card').style.display='none';"
-                alt="Primary Backdrop Piece IMG_1000"
+                src="IMG_1715-HDR.png"
+                alt="Vibrant autumn leaves and layered canyon mountains"
                 class="zoomable gallery-item"
-                data-title="VIII. Primary Exhibition Backdrop (IMG_1000)"
+                data-title="VIII. Autumn Canyon Layers (HDR)"
               />
             </div>
             <div class="art-caption">
-              <h3>VIII. Signature Backdrop Study</h3>
+              <h3>VIII. Autumn Layers</h3>
+              <span>IMG_1715-HDR // Wasatch Range</span>
+            </div>
+          </article>
+
+          <article class="art-card span-4 wide">
+            <div class="art-img-wrap">
+              <img
+                src="IMG_2327.png"
+                alt="Salt Lake Temple spires silhouetted against an orange sky"
+                class="zoomable gallery-item"
+                data-title="IX. Dusk Spires"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>IX. Dusk Spires</h3>
+              <span>IMG_2327 // Twilight Study</span>
+            </div>
+          </article>
+
+          <!-- ROW 5: 4 + 4 + 4 (Architecture & Heritage) -->
+          <article class="art-card span-4">
+            <div class="art-img-wrap">
+              <img
+                src="schlosslichtenstein.png"
+                alt="Schloss Lichtenstein castle perched on a cliff in autumn"
+                class="zoomable gallery-item"
+                data-title="X. Schloss Lichtenstein"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>X. Schloss Lichtenstein</h3>
+              <span>GERMANY // Cliffside Castle</span>
+            </div>
+          </article>
+
+          <article class="art-card span-4">
+            <div class="art-img-wrap">
+              <img
+                src="IMG_2223.png"
+                alt="Gothic cathedral portal archways and lone pedestrian"
+                class="zoomable gallery-item"
+                data-title="XI. Gothic Portal &amp; Scale"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>XI. Gothic Portal</h3>
+              <span>IMG_2223 // Architectural</span>
+            </div>
+          </article>
+
+          <article class="art-card span-4">
+            <div class="art-img-wrap">
+              <img
+                src="IMG_2293.png"
+                alt="Warmly illuminated temple architecture framed by autumn foliage"
+                class="zoomable gallery-item"
+                data-title="XII. Nocturnal Sanctuary"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>XII. Nocturnal Sanctuary</h3>
+              <span>IMG_2293 // Night Frame</span>
+            </div>
+          </article>
+
+          <!-- ROW 6: 4 + 4 + 4 (Tall Vertical Trio II) -->
+          <article class="art-card span-4 tall">
+            <div class="art-img-wrap">
+              <img
+                src="IMG_0965.png"
+                alt="High altitude vertical perspective of glacial basin"
+                class="zoomable gallery-item"
+                data-title="XIII. Glacial Basin Vertical"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>XIII. Glacial Basin</h3>
+              <span>IMG_0965 // Alpine Study</span>
+            </div>
+          </article>
+
+          <article class="art-card span-4 tall">
+            <div class="art-img-wrap">
+              <img
+                src="IMG_1897.png"
+                alt="White Fender Stratocaster and tube amplifier in warm studio light"
+                class="zoomable gallery-item"
+                data-title="XIV. Analog Signal (Stratocaster &amp; Tube Amp)"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>XIV. Analog Signal</h3>
+              <span>IMG_1897 // Studio Still Life</span>
+            </div>
+          </article>
+
+          <article class="art-card span-4 tall">
+            <div class="art-img-wrap">
+              <img
+                src="IMG_1099.png"
+                alt="Vertical portrait of a bighorn sheep on rocky terrain"
+                class="zoomable gallery-item"
+                data-title="XV. High Ridgeline Sentinel"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>XV. Ridgeline Sentinel</h3>
+              <span>IMG_1099 // Wildlife Vertical</span>
+            </div>
+          </article>
+
+          <!-- ROW 7: 6 + 6 (Music & Studio) -->
+          <article class="art-card span-6">
+            <div class="art-img-wrap">
+              <img
+                src="IMG_1929.png"
+                alt="Two musicians playing guitar under neon blue and magenta lighting"
+                class="zoomable gallery-item"
+                data-title="XVI. Neon Session"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>XVI. Neon Session</h3>
+              <span>IMG_1929 // Chromatic Light</span>
+            </div>
+          </article>
+
+          <article class="art-card span-6">
+            <div class="art-img-wrap">
+              <img
+                src="IMG_1978.png"
+                alt="Monochrome acoustic guitar portrait"
+                class="zoomable gallery-item"
+                data-title="XVII. Monochrome Acoustic Study"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>XVII. Monochrome Study</h3>
+              <span>IMG_1978 // B&amp;W Portrait</span>
+            </div>
+          </article>
+
+          <!-- ROW 8: 4 + 4 + 4 (Golden Hour & Wildlife) -->
+          <article class="art-card span-4">
+            <div class="art-img-wrap">
+              <img
+                src="IMG_1723.png"
+                alt="Sunburst breaking through green forest canopy over mountain valley"
+                class="zoomable gallery-item"
+                data-title="XVIII. Canopy Sunburst"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>XVIII. Canopy Sunburst</h3>
+              <span>IMG_1723 // Natural Flare</span>
+            </div>
+          </article>
+
+          <article class="art-card span-4">
+            <div class="art-img-wrap">
+              <img
+                src="IMG_1729.png"
+                alt="Scarlet maple leaves against golden canyon slopes"
+                class="zoomable gallery-item"
+                data-title="XIX. Crimson &amp; Gold"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>XIX. Crimson &amp; Gold</h3>
+              <span>IMG_1729 // Autumn Contrast</span>
+            </div>
+          </article>
+
+          <article class="art-card span-4">
+            <div class="art-img-wrap">
+              <img
+                src="IMG_1138.png"
+                alt="Black bear foraging in deep green mountain meadow"
+                class="zoomable gallery-item"
+                data-title="XX. Meadow Forager"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>XX. Meadow Forager</h3>
+              <span>IMG_1138 // Telephoto Wildlife</span>
+            </div>
+          </article>
+
+          <!-- ROW 9: 4 + 4 + 4 (Scale,Wildlife & Alpine) -->
+          <article class="art-card span-4">
+            <div class="art-img-wrap">
+              <img
+                src="IMG_1088.png"
+                alt="Bighorn sheep resting on rocky alpine slope"
+                class="zoomable gallery-item"
+                data-title="XXI. Alpine Bighorn"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>XXI. Alpine Bighorn</h3>
+              <span>IMG_1088 // Fauna Study</span>
+            </div>
+          </article>
+
+          <article class="art-card span-4">
+            <div class="art-img-wrap">
+              <img
+                src="IMG_0984.png"
+                alt="Figure overlooking vast turquoise glacial valley and snow peaks"
+                class="zoomable gallery-item"
+                data-title="XXII. Valley Overlook"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>XXII. Valley Overlook</h3>
+              <span>IMG_0984 // Human Scale</span>
+            </div>
+          </article>
+
+          <article class="art-card span-4">
+            <div class="art-img-wrap">
+              <img
+                src="20260128_100248.png"
+                alt="Wide snowy mountain basin with lone figure"
+                class="zoomable gallery-item"
+                data-title="XXIII. High Basin Solitude"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>XXIII. High Basin Solitude</h3>
+              <span>20260128 // Winter Alpine</span>
+            </div>
+          </article>
+
+          <!-- ROW 10: 12 (Lead Master Plate) -->
+          <article class="art-card span-12">
+            <div class="art-img-wrap" style="max-height: 460px;">
+              <img
+                src="IMG_1000.png"
+                alt="Primary Backdrop Piece IMG_1000"
+                class="zoomable gallery-item"
+                data-title="XXIV. Primary Exhibition Backdrop (IMG_1000)"
+              />
+            </div>
+            <div class="art-caption">
+              <h3>XXIV. Signature Backdrop Study</h3>
               <span>IMG_1000 // Lead Plate</span>
             </div>
           </article>
@@ -1115,7 +1356,7 @@
         <div class="artist-grid">
           <div class="portrait-frame">
             <img
-              src="images/IMG_0881.png"
+              src="IMG_0881.png"
               alt="Portrait of Preston Breeze at an alpine lake"
               class="zoomable"
               onclick="openLightboxBySrc(this.src, 'Preston Breeze // Artist Portrait')"
@@ -1178,6 +1419,20 @@
   </div>
 
   <script>
+    // Automatic Fallback Resolver: If a file ever gets moved into /images/ or has a .jpg/.PNG extension, it self-heals
+    document.querySelectorAll('img').forEach(img => {
+      img.addEventListener('error', function() {
+        const rawSrc = this.getAttribute('src');
+        if (!this.dataset.triedSubfolder && !rawSrc.startsWith('images/')) {
+          this.dataset.triedSubfolder = 'true';
+          this.src = 'images/' + rawSrc;
+        } else if (!this.dataset.triedJpg && rawSrc.endsWith('.png')) {
+          this.dataset.triedJpg = 'true';
+          this.src = rawSrc.replace('images/', '').replace(/\.png$/i, '.jpg');
+        }
+      });
+    });
+
     const parallaxBg = document.getElementById('parallax-bg');
     const navbar = document.getElementById('navbar');
     const scrollProgress = document.getElementById('scroll-progress');
