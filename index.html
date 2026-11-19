@@ -391,7 +391,6 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
     }
     .span-8 { grid-column: span 8; }
     .span-6 { grid-column: span 6; }
@@ -409,31 +408,6 @@
       transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
     }
     .art-card:hover .art-img-wrap img { transform: scale(1.045); }
-    .art-caption {
-      padding: 1.15rem 1.4rem;
-      background: rgba(10, 12, 16, 0.95);
-      border-top: 1px solid var(--border-glass);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-    }
-    .art-caption h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.02rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-      color: #ffffff;
-    }
-    .art-caption span {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--muted-light);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
 
     /* SECTION 4: Meet the Artist Slab */
     .artist-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 3.5rem; align-items: center; }
@@ -471,30 +445,27 @@
       align-items: center;
       border: 1px solid rgba(255, 255, 255, 0.15);
     }
-    .artist-bio h3 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1.75rem, 3vw, 2.5rem);
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-      line-height: 1.1;
-    }
-    .artist-bio p { font-size: 1.05rem; color: var(--muted-dark); margin-bottom: 1.25rem; }
     .artist-meta-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
-      margin-top: 2rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border-dark);
+      grid-template-columns: 1fr;
+      gap: 2rem;
       font-family: 'Space Mono', monospace;
-      font-size: 0.78rem;
+      font-size: 0.95rem;
+    }
+    .artist-meta-grid div {
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-dark);
+    }
+    .artist-meta-grid div:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
     }
     .artist-meta-grid div span {
       display: block;
       color: var(--muted-dark);
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      margin-bottom: 0.25rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      margin-bottom: 0.4rem;
     }
 
     /* SECTION 5: Monumental Cutout Finale */
@@ -690,7 +661,7 @@
             <span class="panel-counter">01 / The Philosophy / Part II</span>
             <h2>My Work.</h2>
             <p>
-              The goal of each of my photos is the same: to do my best to capture the intangible spirit of the moment using light, color, and scene.
+              The goal of each of my photos is the same: to do my best to capture the intangible spirit of the moment using light, color, and scene. I want whoever is looking at the frame to feel like they are actually there—standing in the room, feeling the energy, and experiencing it firsthand.
             </p>
             <div class="panel-progress-dots">
               <span class="dot"></span>
@@ -702,7 +673,6 @@
           <!-- Panel 3 -->
           <article class="scroll-panel" data-index="2">
             <span class="panel-counter">01 / The Philosophy / Part III</span>
-            <h2>To Live.</h2>
             <p>
               "It is not death that a man should fear, but never beginning to live."<br><br>— Marcus Aurelius
             </p>
@@ -724,9 +694,6 @@
             <span class="eyebrow">02 / Gallery</span>
             <h2>Music &amp; Sound</h2>
           </div>
-          <span style="font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--muted-light);">
-            TRANSLATING TONE, RHYTHM &amp; ROOM ENERGY INTO LIGHT [+]
-          </span>
         </div>
 
         <div class="gallery-bento">
@@ -735,20 +702,12 @@
             <div class="art-img-wrap">
               <img src="IMG_1929.png" alt="Two musicians playing guitar under neon blue and magenta lighting" class="zoomable gallery-item" data-title="Neon Jam Session" />
             </div>
-            <div class="art-caption">
-              <h3>Neon Jam Session</h3>
-              <span>Studio Color &amp; Rhythm</span>
-            </div>
           </article>
 
           <!-- 2. Stratocaster & Tube Amp -->
           <article class="art-card span-4 wide">
             <div class="art-img-wrap">
               <img src="IMG_1897.png" alt="White Fender Stratocaster and tube amplifier in warm light" class="zoomable gallery-item" data-title="Warm Tube Tone" />
-            </div>
-            <div class="art-caption">
-              <h3>Warm Tube Tone</h3>
-              <span>Stratocaster &amp; Amp</span>
             </div>
           </article>
 
@@ -757,20 +716,12 @@
             <div class="art-img-wrap">
               <img src="IMG_1954.png" alt="Close-up of hands playing electric guitar in red lighting" class="zoomable gallery-item" data-title="Crimson Fretwork" />
             </div>
-            <div class="art-caption">
-              <h3>Crimson Fretwork</h3>
-              <span>Low-Key Stage Light</span>
-            </div>
           </article>
 
           <!-- 4. Monochrome Acoustic Study -->
           <article class="art-card span-6">
             <div class="art-img-wrap">
-              <img src="IMG_1978.png" alt="Black and white portrait playing acoustic guitar outdoors" class="zoomable gallery-item" data-title="Unplugged in Black &amp; White" />
-            </div>
-            <div class="art-caption">
-              <h3>Unplugged in Black &amp; White</h3>
-              <span>Acoustic Session</span>
+              <img src="IMG_1978.png" alt="Black and white portrait playing acoustic guitar outdoors" class="zoomable gallery-item" data-title="Unplugged in Black & White" />
             </div>
           </article>
 
@@ -779,10 +730,6 @@
             <div class="art-img-wrap">
               <img src="IMG_1860_2.png" alt="Playing white Stratocaster in soft directional studio lighting" class="zoomable gallery-item" data-title="Lost in the Mix" />
             </div>
-            <div class="art-caption">
-              <h3>Lost in the Mix</h3>
-              <span>Solo Session</span>
-            </div>
           </article>
 
           <!-- 6. Vocal / Room Vibe -->
@@ -790,20 +737,12 @@
             <div class="art-img-wrap">
               <img src="IMG_2087.png" alt="Candid warm-lit room portrait" class="zoomable gallery-item" data-title="Mid-Song Energy" />
             </div>
-            <div class="art-caption">
-              <h3>Mid-Song Energy</h3>
-              <span>Warm Room Light</span>
-            </div>
           </article>
 
           <!-- 7. Late Night Practice -->
           <article class="art-card span-4">
             <div class="art-img-wrap">
               <img src="IMG_1828_1.png" alt="Playing electric guitar in Moody bedroom studio lighting" class="zoomable gallery-item" data-title="Late Night Groove" />
-            </div>
-            <div class="art-caption">
-              <h3>Late Night Groove</h3>
-              <span>Home Studio Vibe</span>
             </div>
           </article>
         </div>
@@ -833,26 +772,18 @@
           </div>
 
           <div class="artist-bio">
-            <h3>Chasing the Vibe Through Sound, Light, and Landscape.</h3>
-            <p>Idk what to put here :)</p>
-            <p>here as well</p>
-
             <div class="artist-meta-grid">
               <div>
-                <span>PORTFOLIO</span>
-                <strong>ART 1055 Exhibition</strong>
-              </div>
-              <div>
-                <span>HOME BASE</span>
+                <span>LOCATION</span>
                 <strong>Salt Lake City, UT</strong>
-              </div>
-              <div>
-                <span>SECTIONS</span>
-                <strong>Music, Scenery &amp; Life</strong>
               </div>
               <div>
                 <span>APPROACH</span>
                 <strong>Vibe, Color &amp; Atmosphere</strong>
+              </div>
+              <div>
+                <span>PROJECT</span>
+                <strong>Visualising Music/Sound</strong>
               </div>
             </div>
           </div>
@@ -924,7 +855,7 @@
     const hudChapter = document.getElementById('hud-chapter');
     const hudPlate = document.getElementById('hud-plate');
 
-    const plateLabels = ['MY PURSUIT', 'MY WORK', 'TO LIVE'];
+    const plateLabels = ['MY PURSUIT', 'MY WORK', 'PHILOSOPHY'];
 
     // Live Clock logic for the telemetry bar
     function updateClock() {
